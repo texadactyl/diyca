@@ -8,7 +8,9 @@ The inspiration of this project is the myriad of Internet of Things (IoT) projec
 * Partners are using weak cryptography (E.g. RC4 or Single-DES) and there is no secure methodology of managing the secret keys.
 * Partners are using strong secret key cryptography but there is no secure methodology of managing the secret keys.
 
-The purpose of this project is to allow developers to unit test programs which make use of X509 certificate based authentication and cryptography.  Thus, when it is time to migrate to more stringent testing environments (E.g. integrated system testing and user acceptance testing), the only thing new will be the environment since the developers will have already dealt with a Certificate Authority (CA), the user certificate signed by the CA, and the user's private key.
+The first purpose of this project is to allow developers to unit test programs which make use of X509 certificate based authentication and cryptography.  Thus, when it is time to migrate to more stringent testing environments (E.g. integrated system testing and user acceptance testing), the only thing new will be the environment since the developers will have already dealt with a Certificate Authority (CA), the user certificate signed by the CA, and the user's private key.
+
+The project is already proven on an Intel/AMD environment.  A second purpose of this project is to support the installation on ARM 32-bit or 64-bit devices such as the Raspberry Pi 2/3 or the Pine A64(+).
 
 This is *NOT* commercial software; instead, usage is covered by the GNU General Public License version 3 (2007).
 
