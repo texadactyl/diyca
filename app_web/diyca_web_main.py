@@ -26,6 +26,7 @@ SESSION_EMAIL = "email"
 CFGFILE = "diyca_web.cfg"
 SIGNER_FOLDER = "dummy"
 ALLOWED_EXTENSIONS = set(["csr"])
+UNAME = os.uname()
 
 # Initialize Flask
 app = Flask(MYNAME,
@@ -63,6 +64,7 @@ def ensure_no_caching(arg_rendered):
 # Render a main_form from userid, email address, and status text
 def main_form_renderer(arg_userid, arg_email, arg_status_text):
 	out_rendered = render_template("menu_form.html",
+									frm_uname = UNAME,
 									frm_userid = arg_userid,
 									frm_email = arg_email,
 									frm_status = arg_status_text)
@@ -94,6 +96,7 @@ def web_request_initial_contact():
 	if app.debug:
 		app.logger.debug("web_request_initial_contact: Not currently in session")
 	rendered = render_template("login_form.html",
+									frm_uname = UNAME,
 									frm_userid = "",
 									frm_password = "",
 									frm_status = "")
@@ -113,6 +116,7 @@ def web_request_login():
 		# User not found
 		app.logger.error("web_request_login: user {%s} NOT FOUND", userid)
 		rendered = render_template("login_form.html", 
+									frm_uname = UNAME,
 									frm_userid = userid,
 									frm_password = "",
 									frm_status = "* NO SUCH USER ID *")
@@ -124,6 +128,7 @@ def web_request_login():
 		#Invalid password
 		app.logger.error("web_request_login: user {%s} provided an INVALID PASSWORD", userid)
 		rendered = render_template("login_form.html", 
+									frm_uname = UNAME,
 									frm_userid = userid,
 									frm_password = email,
 									frm_status = "* INVALID PASSWORD *")
@@ -140,6 +145,7 @@ def web_request_login():
 @app.route("/gotoregister", methods=["GET"])
 def web_request_goto_register():
 		rendered = render_template("register_form.html", 
+									frm_uname = UNAME,
 									frm_userid = "",
 									frm_email = "",
 									frm_password1 = "",
@@ -155,6 +161,7 @@ def web_request_register():
 	# Validate email address
 	if not util.verify_email_recipient(email):
 		rendered = render_template("register_form.html", 
+									frm_uname = UNAME,
 									frm_userid = userid,
 									frm_email = email,
 									frm_password1 = "",
@@ -176,6 +183,7 @@ def web_request_register():
 	# Failed, user already exists
 	app.logger.error("web_request_register: user {%s} already exists", userid)
 	rendered = render_template("register_form.html",
+								frm_uname = UNAME,
 								frm_userid = userid,
 								frm_email = email,
 								frm_password1 = "",
@@ -199,12 +207,14 @@ def web_request_selected():
 		app.logger.debug("web_request_selected: form with function {%s} received", function)
 	if function == "csr":
 		rendered = render_template("csr_form.html",
+								frm_uname = UNAME,
 								frm_userid = userid, 
 								frm_email = email,
 								frm_status = "")
 		return ensure_no_caching(rendered)
 	elif function == "chgpswd":
 		rendered = render_template("chgpswd_form.html",
+								frm_uname = UNAME,
 								frm_userid = userid, 
 								frm_email = email,
 								frm_status = "")
@@ -212,6 +222,7 @@ def web_request_selected():
 	elif function == "logout":
 		text = util.sprintf("User {%s} successfully logged out", userid)
 		rendered = render_template("login_form.html", 
+									frm_uname = UNAME,
 									frm_userid = "",
 									frm_password = "",
 									frm_status = text)
@@ -224,6 +235,7 @@ def web_request_selected():
 		if util.dbuser_remove(userid):
 			text = util.sprintf("User {%s} successfully unregistered", userid)
 			rendered = render_template("login_form.html", 
+										frm_uname = UNAME,
 										frm_userid = "",
 										frm_password = "",
 										frm_status = text)
@@ -271,6 +283,7 @@ def web_request_change_password():
 		#Invalid password
 		app.logger.error("web_request_change_password: user {%s} provided an INVALID PASSWORD", userid)
 		rendered = render_template("chgpswd_form.html", 
+									frm_uname = UNAME,
 									frm_userid = userid,
 									frm_password = email,
 									frm_status = "* INVALID PASSWORD *")
@@ -307,6 +320,7 @@ def web_request_sign_csr():
 		app.logger.error("web_request_sign_csr from user {%s}: csr_file_obj.filename {%s} is not an allowed type", userid, csr_file_obj.filename)
 		wstr = util.sprintf("*** File extension of {%s} is invalid. Only 'csr' extensions are permitted. ***", csr_file_obj.filename)
 		rendered = render_template("csr_form.html",
+								frm_uname = UNAME,
 								frm_userid = userid, 
 								frm_email = email,
 								frm_status = wstr)
@@ -323,6 +337,7 @@ def web_request_sign_csr():
 		app.logger.error("web_request_sign_csr {%s} from user {%s}: invalid contents (CA sign failed)", csr_file_obj.filename, userid)
 		text = util.sprintf("*** Invalid CSR File Contents (%s) ***", csr_filename)
 		rendered = render_template("csr_form.html",
+								frm_uname = UNAME,
 								frm_userid = userid, 
 								frm_email = email,
 								frm_status = text)
