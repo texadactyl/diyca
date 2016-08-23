@@ -220,7 +220,7 @@ def web_request_selected():
 								frm_status = "")
 		return ensure_no_caching(rendered)
 	elif function == "logout":
-		text = util.sprintf("User {%s} successfully logged out", userid)
+		text = util.sprintf("User {%s} logged out", userid)
 		rendered = render_template("login_form.html", 
 									frm_uname = UNAME,
 									frm_userid = "",
@@ -231,24 +231,6 @@ def web_request_selected():
 		response.set_cookie(SESSION_COOKIE_NAME, "", expires=0)
 		session.clear()
 		return response, 200
-	elif function == "unregister":
-		if util.dbuser_remove(userid):
-			text = util.sprintf("User {%s} successfully unregistered", userid)
-			rendered = render_template("login_form.html", 
-										frm_uname = UNAME,
-										frm_userid = "",
-										frm_password = "",
-										frm_status = text)
-			app.logger.info("web_request_selected: " + text)
-			response = ensure_no_caching(rendered)
-			response.set_cookie(SESSION_COOKIE_NAME, "", expires=0)
-			session.clear()
-			return response, 200
-		# User was not removed (?)
-		text = util.sprintf("web_request_selected: unregister user {%s}: request failed; logged out", userid)
-		app.logger.error(text)
-		response = build_logout_response("<h3>*** " + text + "</h3>")
-		return response, 400
 	# Unrecognizable function - impossible!
 	text = util.sprintf("web_request_selected: *** function {%s} is unsupported; logged out ***", function)
 	app.logger.error(text)
