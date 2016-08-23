@@ -92,9 +92,7 @@ Set up the DIY CA on the Raspberry Pi
 
 * sudo -i
 * cd /opt
-* wget TBD/diyca.v|VERSION|.tar.gz
-* tar xvfz diy.ssl.ca.v|VERSION|.tar.gz
-* rm tar xvfz diy.ssl.ca.v|VERSION|.tar.gz
+* git clone https://github.com/texadactyl/diyca
 * cd diyca
 * Edit app_web/diyca_web.cfg
 	 Change the value for PORT to whatever you want to use.
