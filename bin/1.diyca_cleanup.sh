@@ -26,11 +26,15 @@ logger -s -t $MYNAME "Remove all PYC files"
 find . -name '*.pyc' -exec rm {} \;
 logger -s -t $MYNAME "Remove all DB files"
 find . -name '*.db' -exec rm {} \;
-logger -s -t $MYNAME "Remove calvin/{certs,private}"
-rm -rf calvin/{certs,private}
-logger -s -t $MYNAME "Re-create the SIGNER subdirectory"
+logger -s -t $MYNAME "Re-create app_web/private subdirectory"
+rm -rf app_web/private; mkdir app_web/private
+logger -s -t $MYNAME "Re-create the calvin subdirectory"
+rm -rf calvin; mkdir calvin
+logger -s -t $MYNAME "Re-create the signer subdirectory"
 rm -rf signer; mkdir signer
-logger -s -t $MYNAME "Re-create the LOG subdirectory"
+logger -s -t $MYNAME "Re-create the certs subdirectory"
+rm -rf certs; mkdir certs
+logger -s -t $MYNAME "Re-create the log subdirectory"
 rm -rf log; mkdir log
 #---------------------------------
 logger -s -t $MYNAME "End"
