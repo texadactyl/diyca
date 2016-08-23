@@ -1,0 +1,24 @@
+Administrative Process High-level Design
+========================================
+
+The administrative process runs as a bash shell script from the root login (just like the web server, itself):
+
+    bin/diyca_admin.sh
+
+The menu appears as follows:
+
+	* Admin Menu *
+	* ========== *
+	* 
+	* 1 - Shut down web server
+	* 2 - Set user password to 123456
+	* 3 - Delete user
+	* x/X - Exit
+	* 
+	* Selection:
+
+Function 1 is used to shutdown the web server in an emergency basis or for convenience during development.  It relies on a PID file stored by the web server containing a process ID with which to use as an argument to issue a SIGTERM.
+
+Function 2 is used when a user forgets their password and needs a reset to a known value.
+
+Function 3 is used to permanently remove a user.
