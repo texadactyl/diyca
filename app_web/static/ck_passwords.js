@@ -5,19 +5,16 @@ function validatePassword(arg_pw) {
 	// check for minimum length
 	if (arg_pw.length < minLength) {
 		alert('Your password must be at least ' + minLength + ' characters long. Try again.');
-		document.submit_form.password1.focus();
 		return false;
 	}
 	// check for maximum length
 	if (arg_pw.length > maxLength) {
 		alert('Your password must be no more than ' + maxLength + ' characters long. Try again.');
-		document.submit_form.password1.focus();
 		return false;
 	}
 	// check for embedded spaces
 	if (arg_pw.indexOf(" ") > -1) {
 		alert("No spaces are permitted.");
-		document.submit_form.password1.focus();
 		return false;
 	}
 	return true
@@ -37,6 +34,6 @@ function validateTwoPasswords() {
 		document.submit_form.password1.focus();
 		return false;
 	}
-	// SUCCESS
+	// Validate password
 	return validatePassword(pw1);
 }

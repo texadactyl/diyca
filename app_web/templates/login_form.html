@@ -11,14 +11,14 @@ In the form below,
 </ul>  
 
 <div class=form>
-	<form name=submit_form method="POST" action="/login" onSubmit="return validatePassword(document.submit_form.password.value)">
+	<form name=submit_form method="POST" action="/login" onSubmit="return validatePassword(document.submit_form.password.value);">
 			<label><b>User ID</b></label>
 			<input type="text" value="{{frm_userid}}" name="userid" required>
 			<br>
 			<label><b>Password</b></label>
 			<input type="password" value="{{frm_password}}" name="password" required>
 			<br>
-			<button type="Submit">Submit</button>
+			<button type="submit">Submit</button>
 	</form>
 </div>
 
