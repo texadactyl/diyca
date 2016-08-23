@@ -46,8 +46,8 @@ Submit a function ==> /selected
 		function is "logout": Clear session context and schedule cookie to be deleted
 					==> Login form
 
-Certificate Signing Request form in a new tab
-=============================================
+Certificate Signing Request (CSR) form in a new tab
+===================================================
 
 	Input:
 		Selected CSR file to upload
