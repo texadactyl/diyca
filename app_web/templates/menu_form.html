@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script>
+function validator() {
+	var selected = document.getElementById("submit_form").function.value;
+	if( selected == "unregister" ) {
+		var answer = confirm("Press Ok if you REALLY REALLY REALLY want to unregister (I won't ask you again!):");
+		if ( answer == true )
+			return true
+		else
+			return false
+	} 
+	if( selected == "csr" ) 
+		document.getElementById("submit_form").target = "_blank"; // new tab
+	else
+		document.getElementById("submit_form").target = "_self"; // stay in this tab
+	return true; // Succeeds no matter what
+}
+</script>
+
+<h3>Function Menu</h3>
+<h3>User: {{frm_userid}}</h3>
+<h5>Email: {{frm_email}}</h5>
+<h5>Pick a function from this list:</h5>
+
+<div class=form>
+	<form id="submit_form" method="POST" action="/selected" 
+		  onSubmit="return validator()" target="_self">
+		<select required name="function">
+			<option value="" selected> </option>
+			<option value="csr">Certificate Signing Request (CSR)</option>
+			<option value="chgpswd">Change Password</option>
+			<option value="logout">Logout</option>
+		</select> 
+		<br/>
+		<button type="Submit">Submit</button>
+	</form>
+</div>
+
+<br>
+<h5>Status: {{frm_status}}</h5>
+
+{% endblock %}

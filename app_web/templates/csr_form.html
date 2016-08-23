@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<SCRIPT LANGUAGE="JavaScript">
+function checkFile() {
+	document.getElementById("status").innerHTML = "";
+	if( document.getElementById("submit_form").file.value == "" ) {
+		alert( "You must select a CSR file to sign before clicking on submit" );
+		return false; // Prevent submit
+	}
+	return true;
+}
+</script>
+
+<h3>Select a CSR File for Signing then Submit</h3>
+<h3>User: {{frm_userid}}</h3>
+<h5>Email: {{frm_email}}</h5>
+
+<div class=form>
+	<form id="submit_form" action="/signcsr" method="POST" enctype="multipart/form-data"
+			onSubmit="return checkFile()">
+	 	<p><input type="file" name="file">
+		<br>
+		<br>
+		<br>
+		<input type="submit" name="submit" value="submit">
+	</form>
+</div>
+
+<br>
+
+<h5 id="status">{{frm_status}}</h5>
+
+<h5>Once the download has completed, you may close this tab.</h5>
+
+{% endblock %}

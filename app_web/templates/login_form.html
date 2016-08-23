@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script src="{{ url_for('static', filename='ck_passwords.js') }}"></script>
+
+<h3>User Login</h3>
+In the form below,
+<ul>
+  <li>Provide your user ID.  If you do not yet have one, click instead on the register link below.</li>
+  <li>Enter your password which must match what was provided at the time of registration or the last time you changed it.</li>
+</ul>  
+
+<div class=form>
+	<form name=submit_form method="POST" action="/login" onSubmit="return validatePassword(document.submit_form.password.value)">
+			<label><b>User ID</b></label>
+			<input type="text" value="{{frm_userid}}" name="userid" required>
+			<br>
+			<label><b>Password</b></label>
+			<input type="password" value="{{frm_password}}" name="password" required>
+			<br>
+			<button type="Submit">Submit</button>
+	</form>
+</div>
+
+<br>
+Need to <a href="/gotoregister">register?</a>
+<br>
+<br>
+If you forget your password, contact the admin to reset it for you.
+<br>
+If you wish to unregister, contact the admin to remove your ID from the database.
+<br>
+<br>
+{{frm_status}}
+
+{% endblock %}

@@ -1,0 +1,67 @@
+"/"
+===
+Go to Login form
+
+Login Existing Client
+=====================
+	Input form:
+		Name
+		Password
+	Submit action
+		/login 
+	Output screen:
+		Main menu if successful
+		Login form if not successful (diagnostic)
+	Stored in browser if successful:
+		Secure cookie add/update
+
+Register New Client
+===================
+
+	Input form:
+		Name
+		Email
+		Password (1st entry)
+		Password (2nd entry)
+	Submit action
+		/register
+	Output screen:
+		Confirmation notice if successful
+		Register form if not successful (diagnostic)
+	Stored in browser if successful:
+	   	Secure cookie add/update
+
+Main menu
+=========
+
+1. Certificate Signing Request (CSR) from Client
+	Input form:
+		Imbedded CSR file
+	Provided from browser:
+		Secure cookie
+	Output screen:
+		Success: 
+			Download dialog with client
+				to store signed certificate (client CRT)
+			Menu status updated (client CRT delivered)
+		Failure: Menu status updated (failure notification)
+	Stored in browser unconditionally:
+		Secure cookie add/update
+
+2. Change Password for an Existing Client
+	Input form:
+		Name
+		Old Password 
+		New Password (1st entry)
+		New Password (2nd entry)
+	Output screen:
+		Menu status updated ("password changed" or failure notification)
+	Stored in browser unconditionally:
+		Secure cookie add/update
+
+3. Logout Existing Client
+	Provided from browser:
+		Secure cookie
+	Stored in browser unconditionally:
+		Secure cookie is deleted
+

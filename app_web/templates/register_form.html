@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script src="{{ url_for('static', filename='ck_passwords.js') }}"></script>
+
+<h3>User Registration</h3>
+In the form below,
+<ul>
+  <li>Choose a unique user ID.</li>
+  <li>Your email address must conform to correct email URL syntax (IETF RFC 6068).  
+		Note that this address will be used to contact you 
+		and request confirmation of what is entered in this form before you can login.</li>
+  <li>Enter your chosen password.  
+		Passwords must be between 6 and 16 characters in length and contain no spaces.  
+		No other validation is performed.</li>
+</ul>  
+
+<div class=form>
+	<form method="POST" name=submit_form action="/register" onSubmit="return validateTwoPasswords()">
+			<label><b>User ID</b></label>
+			<input type="text" value="{{frm_userid}}" name="userid" required>
+			<br>
+			<label><b>Email</b></label>
+			<input type="text" value="{{frm_email}}" name="email" required>
+			<br>
+			<label><b>Password (1st entry)</b></label>
+			<input type="password" value="{{frm_password1}}" name="password1" required>
+			<br>
+			<label><b>Password (2nd entry)</b></label>
+			<input type="password" value="{{frm_password2}}" name="password2" required>
+			<br>
+			<button type="submit">Submit</button>
+	</form>
+</div>
+
+<br>
+{{frm_status}}
+
+{% endblock %}

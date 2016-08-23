@@ -1,0 +1,53 @@
+/*
+	Colors chosen using http://htmlcolorcodes.com/
+*/
+
+/* Set style for image logo */
+#pteradiv {
+	height: 80px;
+    width: 80px;
+}
+#pteradiv img
+{
+  max-width:100%; 
+  max-height:100%;
+  margin:auto;
+  display:block;
+}
+
+/* Set style for FORM */
+form {
+    border: 6px solid  #0; /* black */
+	background-color:     #e5e8e8; /* light gray */
+    padding: 10px;
+}
+
+/* Set style for H3 */
+h3 {
+    background-color:  #707b7c ; /* dark gray */
+    color: #ffffff; /* white */
+    padding: 14px 20px;
+    margin: 8px;
+    border: 0px;
+    cursor: not-allowed;
+}
+
+/* Set style for INPUT TEXT and PASSWORD fields */
+input[type=text], input[type=password] {
+    padding: 10px, 10px, 10px, 10px;
+    margin: 8px;
+    display: inline-block;
+    border: 2px solid #0; /* thin black border */
+    box-sizing: border-box;
+}
+
+/* Set style for class PUSHME (buttons) */
+input[type=submit], button[type=submit] {
+    background-color:  #229954; /* green */
+    color: #ffffff; /* white */
+    padding: 5px 5px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+}
+
