@@ -183,51 +183,6 @@ def web_request_register():
 								frm_status = "* USER ALREADY EXISTS *")
 	return ensure_no_caching(rendered), 200
 
-@app.route("/change_password", methods=["POST"])
-def web_request_change_password():
-	if SESSION_USERID in session:
-		userid = session[SESSION_USERID]
-		email = session[SESSION_EMAIL]
-	else:
-		# Not in session - impossible!
-		text = "web_request_change_password(): No current session; logged out"
-		app.logger.error(text)
-		response = build_logout_response("<h3>*** " + text + "</h3>")
-		return response, 400
-	# Hash the current password
-	password = util.hash_a_secret(request.form["password"])
-    # Get database row for this userid
-	row = util.dbuser_get(userid)
-	if row == None:
-		# User not found - impossible!
-		text = util.sprintf("web_request_change_password: user {%s} NOT FOUND; logged out", userid)
-		app.logger.error(text)
-		response = build_logout_response("<h3>*** " + text + "</h3>")
-		return "<h3>"+text+"</h3>", 400
-	# Extract row columns for userid
-	(dummy, email, db_password, stamp) = row
-	# Valid password entered?
-	if password != db_password:
-		#Invalid password
-		app.logger.error("web_request_change_password: user {%s} provided an INVALID PASSWORD", userid)
-		rendered = render_template("chgpswd_form.html", 
-									frm_userid = userid,
-									frm_password = email,
-									frm_status = "* INVALID PASSWORD *")
-		return ensure_no_caching(rendered), 200
-	# Hash the new password field
-	ok_password = util.hash_a_secret(request.form["password1"])
-	# Update user with new password
-	if util.dbuser_update_password(userid, ok_password):
-		# Success
-		rendered = main_form_renderer(userid, email, "Password changed")
-		app.logger.info("web_request_change_password: userid {%s / %s} successfully changed password", userid, email)
-		return ensure_no_caching(rendered), 200
-	# Report database update error
-	app.logger.error("web_request_change_password: Could not update password for user {%s}", userid)
-	rendered = main_form_renderer(userid, email, "*** Password change FAILED ***")
-	return ensure_no_caching(rendered), 204
-
 @app.route("/selected", methods=["POST"])
 def web_request_selected():
 	if SESSION_USERID in session:
@@ -287,6 +242,51 @@ def web_request_selected():
 	app.logger.error(text)
 	response = build_logout_response("<h3>*** " + text + "</h3>")
 	return response, 400
+
+@app.route("/change_password", methods=["POST"])
+def web_request_change_password():
+	if SESSION_USERID in session:
+		userid = session[SESSION_USERID]
+		email = session[SESSION_EMAIL]
+	else:
+		# Not in session - impossible!
+		text = "web_request_change_password(): No current session; logged out"
+		app.logger.error(text)
+		response = build_logout_response("<h3>*** " + text + "</h3>")
+		return response, 400
+	# Hash the current password
+	password = util.hash_a_secret(request.form["password"])
+    # Get database row for this userid
+	row = util.dbuser_get(userid)
+	if row == None:
+		# User not found - impossible!
+		text = util.sprintf("web_request_change_password: user {%s} NOT FOUND; logged out", userid)
+		app.logger.error(text)
+		response = build_logout_response("<h3>*** " + text + "</h3>")
+		return "<h3>"+text+"</h3>", 400
+	# Extract row columns for userid
+	(dummy, email, db_password, stamp) = row
+	# Valid password entered?
+	if password != db_password:
+		#Invalid password
+		app.logger.error("web_request_change_password: user {%s} provided an INVALID PASSWORD", userid)
+		rendered = render_template("chgpswd_form.html", 
+									frm_userid = userid,
+									frm_password = email,
+									frm_status = "* INVALID PASSWORD *")
+		return ensure_no_caching(rendered), 200
+	# Hash the new password field
+	ok_password = util.hash_a_secret(request.form["password1"])
+	# Update user with new password
+	if util.dbuser_update_password(userid, ok_password):
+		# Success
+		rendered = main_form_renderer(userid, email, "Password changed")
+		app.logger.info("web_request_change_password: userid {%s / %s} successfully changed password", userid, email)
+		return ensure_no_caching(rendered), 200
+	# Report database update error
+	app.logger.error("web_request_change_password: Could not update password for user {%s}", userid)
+	rendered = main_form_renderer(userid, email, "*** Password change FAILED ***")
+	return ensure_no_caching(rendered), 204
 
 # Sign an uploaded CSR file, yielding a CRT file
 @app.route("/signcsr", methods=["POST"])
