@@ -2,23 +2,25 @@
 ===
 Go to Login form
 
-Login Existing Client
-=====================
-	Input form:
+Login form
+==========
+	Input:
 		Name
 		Password
-	Submit action
+	Submit action:
 		/login 
+	Click on register link action:
+		/gotoregister which presents a Register form
 	Output screen:
 		Main menu if successful
 		Login form if not successful (diagnostic)
 	Stored in browser if successful:
-		Secure cookie add/update
+		Secure cookie added
 
-Register New Client
-===================
+Register form
+=============
 
-	Input form:
+	Input:
 		Name
 		Email
 		Password (1st entry)
@@ -26,42 +28,49 @@ Register New Client
 	Submit action
 		/register
 	Output screen:
-		Confirmation notice if successful
-		Register form if not successful (diagnostic)
+		Main menu if successful
+		Register form if not successful
 	Stored in browser if successful:
-	   	Secure cookie add/update
+	   	Secure cookie added
 
 Main menu
 =========
 
-1. Certificate Signing Request (CSR) from Client
-	Input form:
-		Imbedded CSR file
-	Provided from browser:
-		Secure cookie
+1. Certificate Signing Request (CSR) ==> /signcsr
+2. Change Password ==> /change_password
+3. Logout Existing Client
+
+Submit a function ==> /selected
+		function is "csr" ==> CSR form
+		function is "chgpswd" ==> Change Password form
+		function is "logout": Clear session context and schedule cookie to be deleted
+					==> Login form
+
+Certificate Signing Request form in a new tab
+=============================================
+
+	Input:
+		Selected CSR file to upload
 	Output screen:
 		Success: 
-			Download dialog with client
-				to store signed certificate (client CRT)
-			Menu status updated (client CRT delivered)
-		Failure: Menu status updated (failure notification)
-	Stored in browser unconditionally:
-		Secure cookie add/update
+			Downloaded signed certificate (client CRT)
+			The user can close this tab
+		Failure: 
+			CSR form updated (failure notification)
+			400 error is possible for an internal error
 
-2. Change Password for an Existing Client
+Change Password form
+====================
+
 	Input form:
 		Name
 		Old Password 
 		New Password (1st entry)
 		New Password (2nd entry)
 	Output screen:
-		Menu status updated ("password changed" or failure notification)
-	Stored in browser unconditionally:
-		Secure cookie add/update
-
-3. Logout Existing Client
-	Provided from browser:
-		Secure cookie
-	Stored in browser unconditionally:
-		Secure cookie is deleted
-
+	Output screen:
+		Success: 
+			Main form shows status set to success
+		Failure: 
+			Change Password form updated with reason for failure
+			400 error is possible for an internal error
