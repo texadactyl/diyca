@@ -5,17 +5,6 @@
 #------------------------------------
 export MYNAME=`basename $0`
 logger -s -t $MYNAME "Begin"
-. bin/diyca_common.bash
-if [ $? -ne 0 ]; then
-	logger -s -t $MYNAME "*** bin/diyca_common.bash is inaccessible"
-	exit 86
-fi
-diyca_validate_tree
-if [ $? -ne 0 ]; then
-	logger -s -t $MYNAME "*** bin/diyca_common.bash[diyca_validate_tree] failed"
-	exit 86
-fi
-#---------------------------------
 logger -s -t $MYNAME "Remove all CRT files"
 find . -name '*.crt' -exec rm {} \;
 logger -s -t $MYNAME "Remove all CSR files"
