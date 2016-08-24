@@ -36,7 +36,22 @@ On a Linux, Mac, or Windows desktop system, prepare the MicroSD
 * Go to https://www.raspberrypi.org/downloads/raspbian/
 * Download Raspbian Jessie Lite or Raspbian Jessie
 * Extract img from zip
-* Write img to MicroSD
+* Write img to the MicroSD device:
+     - Insert the MicroSD into a MicroSD adapter which has a USB plug for your desktop computer.
+     - Then, insert the adapter into a USB connector on your desktop computer.
+     - Make sure that the target drive is what you think it is. 
+       Your desktop O/S is probably not forgiving if you accidentally overwrite something else!
+       On Linux and Unix,  you can use the `mount` command without parameters 
+       to show what was just mounted where.
+     - For me, on Linux, my device turned out to be /dev/sdb and two partitions {sdb1, sdb2} were
+       automounted when I inserted the adapter.
+     - You must unmount any old partitions on the MicroSD drive before using a disk write tool like
+       `dd` (Linux and Unix).
+     - For me, on Linux, recently (an example, only), the following is how I proceeded:
+          sudo umount /dev/sdb1     # Unmount an old boot partition
+          sudo umount /dev/sdb2     # Unmount an old "/" partition
+          sudo dd if=/home/elkins/Downloads/2016-05-27-raspbian-jessie-lite.img of=/dev/sdb bs=4M
+     - Note that I used "sdb" (entire device) and not "sdb1" (partition) as the target of `dd`.
 
 ===================================================================
 Set up on the Raspberry Pi target system
