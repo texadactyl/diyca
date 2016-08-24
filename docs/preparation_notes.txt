@@ -59,18 +59,20 @@ Set up on the Raspberry Pi target system
 
 * Install MicroSD in RPi and perform 1st boot
 * Login as pi with password=raspberry
-* Optionally, change password of user pi
+* Optionally, change password of user pi and the root:
+	passwd
+	sudo passwd root
 * Non-UK only (E.g. USA):
      sudo dpkg-reconfigure:
-		 locales             # set to en_US.UTF-8 if and only if in USA
+		 locales             # for USA: set to en_US.UTF-8
 		 tzdata              # set to local timezone as appropriate for your region
-		 keyboard-configuration   # for USA, set to Generic 104-key PC, English (US) layout
+		 keyboard-configuration   # for USA: set to Generic 104-key PC, English (US) layout
 * If at least 1GB RAM available (E.g. Raspberry Pi 2 or later), 
   then, as the root, edit /etc/fstab
    Append with:
-      # Save wear and tear on the MicroSD and run somewhat faster!
-      tmpfs /tmp tmpfs defaults,noatime,nosuid,size=256m 0 0
-      tmpfs /run tmpfs defaults,noatime,nosuid,size=64m 0 0
+	# Save wear and tear on the MicroSD and run somewhat faster!
+	tmpfs /tmp tmpfs defaults,noatime,nosuid,size=256m 0 0
+	tmpfs /run tmpfs defaults,noatime,nosuid,size=64m 0 0
       
 *** REBOOT ***
 
