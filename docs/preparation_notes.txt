@@ -63,11 +63,11 @@ Set up on the Raspberry Pi target system
 	passwd
 	sudo passwd root
 * Non-UK only (E.g. USA):
-     sudo dpkg-reconfigure:
+	sudo dpkg-reconfigure:
 		 locales             # for USA: set to en_US.UTF-8
 		 tzdata              # set to local timezone as appropriate for your region
 		 keyboard-configuration   # for USA: set to Generic 104-key PC, English (US) layout
-      *** REBOOT ***
+	sudo reboot
 
 * If at least 1GB RAM available (E.g. Raspberry Pi 2 or later), 
   then, as the root, edit /etc/fstab
@@ -76,7 +76,7 @@ Set up on the Raspberry Pi target system
 	tmpfs /tmp tmpfs defaults,noatime,nosuid,size=256m 0 0
 	tmpfs /run tmpfs defaults,noatime,nosuid,size=64m 0 0
       
-*** REBOOT ***
+* sudo reboot
 
 * Set up wifi or Wired Ethernet with a fixed IP address.  
   For wired:
@@ -100,7 +100,7 @@ Set up on the Raspberry Pi target system
       > 9 Advanced Options
          > A4 SSH (Enable the SSH server)
 
-*** REBOOT ***
+* sudo reboot
 
 ======================================================
 Update O/S
@@ -142,7 +142,7 @@ Set up the DIY CA on the Raspberry Pi
 Launch DIYCA on the Raspberry Pi
 ======================================================
 
-*** REBOOT ***
+	sudo reboot
 
 ===========================================================================
 The web server should be running.
