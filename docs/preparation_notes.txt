@@ -87,9 +87,8 @@ Set up on the Raspberry Pi target system
 			static ip_address=192.168.1.103
 			static routers=192.168.1.1
 			static domain_name_servers=192.168.1.1
-   3) sudo ifdown eth0
-   4) sudo ifup eth0
-   5) ifconfig -v # <----- Trust but verify.
+   3) sudo reboot
+   4) ifconfig   # <----- Trust but verify.
 * I won't bother with the following unless I see some benefit in the future:
    - Overclocking  
    - HDMI enhancements
