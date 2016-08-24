@@ -56,7 +56,9 @@ Set up on the Raspberry Pi target system
       # Save wear and tear on the MicroSD and run somewhat faster!
       tmpfs /tmp tmpfs defaults,noatime,nosuid,size=256m 0 0
       tmpfs /run tmpfs defaults,noatime,nosuid,size=64m 0 0
-* REBOOT
+      
+*** REBOOT ***
+
 * Set up wifi or Wired Ethernet with a fixed IP address.  
   For wired:
    1) Leave /etc/network/interfaces exactly as supplied
@@ -78,7 +80,8 @@ Set up on the Raspberry Pi target system
       > 1 Expand Filesystem
       > 9 Advanced Options
          > A4 SSH (Enable the SSH server)
-* REBOOT
+
+*** REBOOT ***
 
 ======================================================
 Update O/S
@@ -120,26 +123,27 @@ Set up the DIY CA on the Raspberry Pi
 Launch DIYCA on the Raspberry Pi
 ======================================================
 
-* REBOOT
+*** REBOOT ***
 
-===============================================================================================
-On another machine, add Calvin's certificate as trusted to "identify web sites" (Firefox-speak)
-===============================================================================================
+===========================================================================
+The web server should be running.
+Test that a browser can connect and operate.
+===========================================================================
 
 That was the server.  Now, the clients on other machines
 who want CA services.
 
-Remember the CA certificate?  Time to load
-into a browser as a trusted authority.
+Remember the CA certificate?  Time to load the certificate into a browser 
+on another machine as trusted to "identify web sites" (Firefox-speak).
 
-For Firefox version 48.0 on Linux:
+For Firefox version 48.0 on Linux, this was the process:
 	Select preferences (URL = about:preferences).
 	Select "Advanced".
 	Select the "Certificates" tab.
 	Select "View Certificates".
 	Select the "Authorities" tab and click on "Import...".
 	That opens a "Select file" dialogue.
-    Select the diyca_calvin.crt file and click on "Open".
+    	Select the diyca_calvin.crt file and click on "Open".
 	Click on "Trust this CA to identify websites."
 	Exit from Firefox (necessary!).
 	Relaunch Firefox.
@@ -149,17 +153,20 @@ I put the following in the location window:
 
 	https://192.168.1.102:8080
 
-IMPORTANT: Make sure that the subjectAltName value in etup/diyca_web_cert.cfg
-is an *exact* match to the IP address in the browser location window.
+IMPORTANT - Make certain that:
+* The IP address in the browser location window is an *exact* match 
+to the subjectAltName value in bin/diyca_web_cert.cfg of the web server.
+* The port number in the browser location window is an *exact* match 
+to the PORT variable in app_web/diyca_web.cfg of the web server.
 
-That got me to the main menu and access to 
-all the menu functions which was my expectation.
+That got me to the login page which was my expectation.  If this is the first time, click on
+"register" and set up a user.  When registration completes, you are automatically logged in.
 
-Firefox on my wife's Mac laptop: Ditto.  Note that Firefox on the Mac 
+Firefox on my wife's Mac laptop: Everything worked exactly as on Linux.  Note that Firefox on the Mac 
 does not use the Apple keychain utility!
 
 After importing diyca_calvin.crt with the Apple keychain utility and marking it
-as trusted for web operations, I was able to access the diyca server main menu 
+as trusted for web operations, I was able to access the diyca server Login menu 
 from Safari and Chrome on wife's Mac laptop.
 
 Sorry, I have no Windows machine so I cannot try MSIE.
@@ -168,7 +175,7 @@ Sorry, I have no Windows machine so I cannot try MSIE.
 Test with the sample applications, alice and bob
 ======================================================
 
-*Coming soon*
+*** COMING SOON ***
 
 ======================================================
 External references for 3rd party tools
@@ -184,4 +191,3 @@ External references for 3rd party tools
 * DNS functions: http://www.dnspython.org/
 * Git reference: http://gitref.org/
 * Guide to github.com: https://guides.github.com/activities/hello-world/ 
-
