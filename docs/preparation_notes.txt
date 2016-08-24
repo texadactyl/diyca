@@ -143,7 +143,7 @@ Set up the DIY CA on the Raspberry Pi
   	rsync pi@192.168.1.103:/opt/diyca/certs/diyca_calvin.crt $HOME/Downloads
 * bin/3.diyca_web_init.sh
 * Edit /etc/rc.local
-	 Append with:
+	 Just before the "exit 0", add the following lines:
 		# Launch DIY CA
 		cd /opt/diyca/app_diyca
 		bin/rc.diyca.sh
