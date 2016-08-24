@@ -145,7 +145,7 @@ Set up the DIY CA on the Raspberry Pi
 * Edit /etc/rc.local
 	 Just before the "exit 0", add the following lines:
 		# Launch DIY CA
-		cd /opt/diyca/app_diyca
+		cd /opt/diyca
 		bin/rc.diyca.sh
 
 ======================================================
