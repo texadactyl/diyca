@@ -136,9 +136,11 @@ Set up the DIY CA on the Raspberry Pi
      i.e. where diyca is going to run.
 * bin/1.diyca_cleanup.sh
 * bin/2.diyca_calvin_init.sh
-* Copy Calvin's self-signed CA certificate (certs/diyca_calvin.crt) 
-  to a public file server or onto a thumb drive
-  for later use with the applications (E.g. samples alice and bob).
+* Get a copy of Calvin's self-signed CA certificate (certs/diyca_calvin.crt) 
+  onto the desktop computer where you will be using it later on with applications
+  (E.g. sample applications alice and bob).
+  I used Linux `rsync` to pull this certificate onto another computer:
+  	rsync pi@192.168.1.103:/opt/diyca/certs/diyca_calvin.crt $HOME/Downloads
 * bin/3.diyca_web_init.sh
 * Edit /etc/rc.local
 	 Append with:
