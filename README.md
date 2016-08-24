@@ -1,5 +1,5 @@
 # diyca
-The contents of this git project constitutes a Do-It-Yourself Certificate Authority (diyca), suitable for unit testing (developer testing) just prior to entering integration system testing with a wider audience (potentially end-users and auditors).
+The contents of this git project constitutes a Do-It-Yourself Certificate Authority (diyca), suitable for unit testing (developer testing) just prior to entering integration system testing with a wider audience: more developers, end-users, and auditors.
 
 The inspiration of this project is the myriad of Internet of Things (IoT) projects that are often (not always) falling into one of the following categories of undesirable patterns:
 
