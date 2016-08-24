@@ -80,10 +80,10 @@ Set up on the Raspberry Pi target system
 * REBOOT
 
 ======================================================
-Get 3rd party tools - see references at end of this note
+Get some packages - see references at end of this note
 ======================================================
 
-* sudo apt install python-pip openssl python-openssl sqlite3
+* sudo apt install git python-pip openssl python-openssl sqlite3
 * sudo pip install flask dnspython
 
 ======================================================
