@@ -12,12 +12,13 @@ System requirements and comments
 		(Guess: RPi earlier than 2 could be made to work)
 * Operating system: Unix, Linux, or MacOSX
 	(I never have tried diyca on a flavor of Intel/AMD Windows)
-* No desktop is needed.  Hence, I recommend Raspbian Jessie Lite
-* Python 2.7.x
-* python-pip
-* openssl 
-* python-openssl 
-* sqlite3
+* No desktop is required.  E.g. Raspbian Jessie Lite works just fine.  On the other hand, for occasional desktop use, Raspian Jessie would be a good choice.
+* Python 2.7.x (Version 3 is not yet supported)
+* git (deb package or the rpm equivalent)
+* python-pip (deb package or the rpm equivalent)
+* openssl (deb package or the rpm equivalent)
+* python-openssl (deb package or the rpm equivalent)
+* sqlite3 (deb package or the rpm equivalent)
 * flask (install with `pip`) 
 * dnspython (install with `pip`)
 
