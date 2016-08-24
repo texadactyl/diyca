@@ -67,8 +67,7 @@ Set up on the Raspberry Pi target system
 		 locales             # for USA: set to en_US.UTF-8
 		 tzdata              # set to local timezone as appropriate for your region
 		 keyboard-configuration   # for USA: set to Generic 104-key PC, English (US) layout
-      
-*** REBOOT (if not in the UK) ***
+      *** REBOOT ***
 
 * If at least 1GB RAM available (E.g. Raspberry Pi 2 or later), 
   then, as the root, edit /etc/fstab
