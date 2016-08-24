@@ -34,7 +34,7 @@ On a Linux, Mac, or Windows desktop system, prepare the MicroSD
 ===============================================================
 
 * Go to https://www.raspberrypi.org/downloads/raspbian/
-* Download Raspbian Jessie Lite
+* Download Raspbian Jessie Lite or Raspbian Jessie
 * Extract img from zip
 * Write img to MicroSD
 
@@ -46,9 +46,9 @@ Set up on the Raspberry Pi target system
 * Login as pi with password=raspberry
 * Optionally, change password of user pi
 * Non-UK only (E.g. USA):
-     sudo dpkg-reconfigure
+     sudo dpkg-reconfigure:
 		 locales             # set to en_US.UTF-8 if and only if in USA
-		 tzdata              # set to local timezone as appropriate to your region
+		 tzdata              # set to local timezone as appropriate for your region
 		 keyboard-configuration   # for USA, set to Generic 104-key PC, English (US) layout
 * If at least 1GB RAM available (E.g. Raspberry Pi 2 or later), 
   then, as the root, edit /etc/fstab
@@ -81,9 +81,11 @@ Set up on the Raspberry Pi target system
 * REBOOT
 
 ======================================================
+Update O/S
 Get some packages - see references at end of this note
 ======================================================
 
+* sudo apt update; sudo apt dist-upgrade
 * sudo apt install git python-pip openssl python-openssl sqlite3
 * sudo pip install flask dnspython
 
@@ -104,9 +106,9 @@ Set up the DIY CA on the Raspberry Pi
      i.e. where diyca is going to run.
 * bin/1.diyca_cleanup.sh
 * bin/2.diyca_calvin_init.sh
-* Copy the CA certificate (certs/diyca_calvin.crt) 
+* Copy Calvin's self-signed CA certificate (certs/diyca_calvin.crt) 
   to a public file server or onto a thumb drive
-  for use with the applications (E.g. samples alice and bob).
+  for later use with the applications (E.g. samples alice and bob).
 * bin/3.diyca_web_init.sh
 * Edit /etc/rc.local
 	 Append with:
@@ -120,9 +122,9 @@ Launch DIYCA on the Raspberry Pi
 
 * REBOOT
 
-======================================================
-First test with a browser
-======================================================
+===============================================================================================
+On another machine, add Calvin's certificate as trusted to "identify web sites" (Firefox-speak)
+===============================================================================================
 
 That was the server.  Now, the clients on other machines
 who want CA services.
@@ -163,13 +165,23 @@ from Safari and Chrome on wife's Mac laptop.
 Sorry, I have no Windows machine so I cannot try MSIE.
 
 ======================================================
+Test with the sample applications, alice and bob
+======================================================
+
+*Coming soon*
+
+======================================================
 External references for 3rd party tools
 ======================================================
 
-[1] Python pip utility: https://pip.pypa.io/en/stable/
-[2] Python web toolkit "flask": http://flask.pocoo.org/
-[3] OpenSSL: https://www.openssl.org/
-[4] Python interface to OpenSSL: https://pypi.python.org/pypi/pyOpenSSL
-[5] Minimalist database: http://sqlite.org/
-[6] DNS functions: http://www.dnspython.org/
+* Python 2 language reference: https://docs.python.org/2/reference/
+* Python 2 standard library reference: https://docs.python.org/2/library/
+* Python pip utility: https://pip.pypa.io/en/stable/
+* Python web toolkit "flask": http://flask.pocoo.org/
+* OpenSSL: https://www.openssl.org/
+* Python interface to OpenSSL: https://pypi.python.org/pypi/pyOpenSSL/
+* "Minimalist database": http://sqlite.org/
+* DNS functions: http://www.dnspython.org/
+* Git reference: http://gitref.org/
+* Guide to github.com: https://guides.github.com/activities/hello-world/ 
 
