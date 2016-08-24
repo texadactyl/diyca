@@ -1,7 +1,7 @@
 # diyca
 D.I.Y. Certificate Authority
 
-The contents of this git project constitutes a Do-it-yourself Certificate Authority.
+The contents of this git project constitutes a Do-It-Yourself Certificate Authority.
 
 The inspiration of this project is the myriad of Internet of Things (IoT) projects that are often falling into one of the following categories of undesirable patterns:
 
@@ -15,7 +15,7 @@ The primary goal of this project is to allow developers to unit test programs wh
 
 The project is already proven on an Intel/AMD environment.  A secondary purpose of this project is to support the installation on ARM 32-bit or 64-bit devices such as the Raspberry Pi 2/3 or the Pine A64(+).
 
-This is *NOT* commercial software; instead, usage is covered by the GNU General Public License version 3 (2007).  In a nutshell, feel free to use it and share it as you will but please don't sell the code.
+This is *NOT* commercial software; instead, usage is covered by the GNU General Public License version 3 (2007).  In a nutshell, please feel free to use the project and share it as you will but please don't sell it.  Thanks!
 
 See the license.txt and gplv3.txt files for the GNU licensing information.
 
