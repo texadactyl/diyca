@@ -1,4 +1,4 @@
-D.I.Y. Certificate Authority (diyca)
+Do-It-Yourself Certificate Authority (diyca)
 Preparation Notes
 
 =======================================================
@@ -104,13 +104,19 @@ Set up on the Raspberry Pi target system
    3) sudo reboot
    4) ifconfig   # <----- Trust but verify.
 
-======================================================
-Update O/S
-Get some packages - see references at end of this note
-======================================================
+===========================================================
+Update the base system since the img file was made.
+Get some packages - see references at end of this document.
+===========================================================
 
-* sudo apt update; sudo apt dist-upgrade
-* sudo apt install git python-pip openssl python-openssl sqlite3
+* sudo apt update
+
+* sudo apt -y dist-upgrade   
+# The above step might run like a tortoise.
+# Also, if a new kernel is installed, don't bother rebooting just quite yet.
+
+* sudo apt -y install git python-pip python-dev openssl python-openssl sqlite3
+
 * sudo pip install flask dnspython
 
 ======================================================
