@@ -17,16 +17,18 @@ This is *NOT* commercial software; instead, usage is covered by the GNU General 
 See the license.txt and gplv3.txt files for the GNU licensing information.
 
 Subfolders:
-  app_web - Python 2 source code for the web server running in a Flask infrastructure
+* app_web - Python 2 source code for the web server running in a Flask infrastructure
             (see docs/preparation_notes.txt for references to all of the supporting software
             as well as how to install, test, etc.)
-  bin - Bash scripts for setting up diyca and other tools
-  calvin - Self-signed Certificate Authority
-  certs - Calvin's certificate and the web server's certificate
-  docs - project documentation (admittedly, skimpy at the moment)
-  example.users - example SSL programs, "alice" and "bob"
-  log - Holds all of the log files which cutoff at midnight; aged to keep a maximum of 10 files
-  signer - uploaded CSRs (temporarily) and downloaded CRTs (accumulating, for the moment)
+* bin - Bash scripts for setting up diyca and other tools
+* calvin - Self-signed Certificate Authority
+* certs - Calvin's certificate and the web server's certificate
+* docs - project documentation (admittedly, skimpy at the moment)
+* example.users - example SSL programs, "alice" and "bob"
+* log - Holds all of the log files which cutoff at midnight; aged to keep a maximum of 10 files
+* signer - uploaded CSRs (temporarily) and downloaded CRTs (accumulating, for the moment)
+
+The starting point with this project is the docs/preparation_notes.txt file.
 
 Feel free to contact richard.elkins@gmail.com for inquiries and issues, especially if you find any bugs.  I'll respond as soon as I can.
 
