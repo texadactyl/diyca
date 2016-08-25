@@ -1,4 +1,4 @@
-D.I.Y. Certificate Authority (diyca)
+Do-It-Yourself Certificate Authority (diyca)
 Preparation Notes
 
 =======================================================
@@ -12,12 +12,13 @@ System requirements and comments
 		(Guess: RPi earlier than 2 could be made to work)
 * Operating system: Unix, Linux, or MacOSX
 	(I never have tried diyca on a flavor of Intel/AMD Windows)
-* No desktop is needed.  Hence, I recommend Raspbian Jessie Lite
-* Python 2.7.x
-* python-pip
-* openssl 
-* python-openssl 
-* sqlite3
+* No desktop is required.  E.g. Raspbian Jessie Lite works just fine.  On the other hand, for occasional desktop use, Raspian Jessie would be a good choice.
+* Python 2.7.x (Version 3 is not yet supported)
+* git (deb package or the rpm equivalent)
+* python-pip (deb package or the rpm equivalent)
+* openssl (deb package or the rpm equivalent)
+* python-openssl (deb package or the rpm equivalent)
+* sqlite3 (deb package or the rpm equivalent)
 * flask (install with `pip`) 
 * dnspython (install with `pip`)
 
@@ -33,29 +34,64 @@ On a Linux, Mac, or Windows desktop system, prepare the MicroSD
 ===============================================================
 
 * Go to https://www.raspberrypi.org/downloads/raspbian/
-* Download Raspbian Jessie Lite
+* Download Raspbian Jessie Lite or Raspbian Jessie
 * Extract img from zip
-* Write img to MicroSD
+* Write img to the MicroSD device:
+     - Insert the MicroSD into a MicroSD adapter which has a USB plug for your desktop computer.
+     - Then, insert the adapter into a USB connector on your desktop computer.
+     - Make sure that the target drive is what you think it is. 
+       Your desktop O/S is probably not forgiving if you accidentally overwrite something else!
+       On Linux and Unix,  you can use the `mount` command without parameters 
+       to show what was just mounted where.
+     - For me, on Linux, my device turned out to be /dev/sdb and two partitions {sdb1, sdb2} were
+       automounted when I inserted the adapter.
+     - You must unmount any old partitions on the MicroSD drive before using a disk write tool like
+       `dd` (Linux and Unix).
+     - For me, on Linux, recently (an example, only), the following is how I proceeded:
+          sudo umount /dev/sdb1     # Unmount an old boot partition
+          sudo umount /dev/sdb2     # Unmount an old "/" partition
+          sudo dd if=/home/elkins/Downloads/2016-05-27-raspbian-jessie-lite.img of=/dev/sdb bs=4M
+     - Note that I used "sdb" (entire device) and not "sdb1" (partition) as the target of `dd`.
 
 ===================================================================
 Set up on the Raspberry Pi target system
 ===================================================================
 
 * Install MicroSD in RPi and perform 1st boot
+
 * Login as pi with password=raspberry
-* Optionally, change password of user pi
+
+* Optionally, change password of user pi and the root:
+	passwd
+	sudo passwd root
+
 * Non-UK only (E.g. USA):
-     sudo dpkg-reconfigure
-		 locales             # set to en_US.UTF-8 if and only if in USA
-		 tzdata              # set to local timezone as appropriate to your region
-		 keyboard-configuration   # for USA, set to Generic 104-key PC, English (US) layout
+	sudo dpkg-reconfigure:
+		 locales             # for USA: set to en_US.UTF-8
+		 tzdata              # set to local timezone as appropriate for your region
+		 keyboard-configuration   # for USA: set to Generic 104-key PC, English (US) layout
+	sudo reboot
+
 * If at least 1GB RAM available (E.g. Raspberry Pi 2 or later), 
   then, as the root, edit /etc/fstab
    Append with:
-      # Save wear and tear on the MicroSD and run somewhat faster!
-      tmpfs /tmp tmpfs defaults,noatime,nosuid,size=256m 0 0
-      tmpfs /run tmpfs defaults,noatime,nosuid,size=64m 0 0
-* REBOOT
+	# Save wear and tear on the MicroSD and run somewhat faster!
+	tmpfs /tmp tmpfs defaults,noatime,nosuid,size=256m 0 0
+	tmpfs /run tmpfs defaults,noatime,nosuid,size=64m 0 0
+      
+* sudo reboot
+
+* I won't bother with the following unless I see some benefit in the future:
+   - Overclocking  
+   - HDMI enhancements
+
+* Fully utilize the MicroSD and install SSH daemon services
+   sudo -i 
+   raspi-config
+      > 1 Expand Filesystem
+      > 9 Advanced Options
+         > A4 SSH (Enable the SSH server)
+
 * Set up wifi or Wired Ethernet with a fixed IP address.  
   For wired:
    1) Leave /etc/network/interfaces exactly as supplied
@@ -65,25 +101,22 @@ Set up on the Raspberry Pi target system
 			static ip_address=192.168.1.103
 			static routers=192.168.1.1
 			static domain_name_servers=192.168.1.1
-   3) sudo ifdown eth0
-   4) sudo ifup eth0
-   5) ifconfig -v # <----- Trust but verify.
-* I won't bother with the following unless I see some benefit in the future:
-   - Overclocking  
-   - HDMI enhancements
-* Fully utilize the MicroSD and install SSH daemon services
-   sudo -i 
-   raspi-config
-      > 1 Expand Filesystem
-      > 9 Advanced Options
-         > A4 SSH (Enable the SSH server)
-* REBOOT
+   3) sudo reboot
+   4) ifconfig   # <----- Trust but verify.
 
-======================================================
-Get 3rd party tools - see references at end of this note
-======================================================
+===========================================================
+Update the base system since the img file was made.
+Get some packages - see references at end of this document.
+===========================================================
 
-* sudo apt install python-pip openssl python-openssl sqlite3
+* sudo apt update
+
+* sudo apt -y dist-upgrade   
+# The above step might run like a tortoise.
+# Also, if a new kernel is installed, don't bother rebooting just quite yet.
+
+* sudo apt -y install git python-pip python-dev openssl python-openssl sqlite3
+
 * sudo pip install flask dnspython
 
 ======================================================
@@ -103,40 +136,43 @@ Set up the DIY CA on the Raspberry Pi
      i.e. where diyca is going to run.
 * bin/1.diyca_cleanup.sh
 * bin/2.diyca_calvin_init.sh
-* Copy the CA certificate (certs/diyca_calvin.crt) 
-  to a public file server or onto a thumb drive
-  for use with the applications (E.g. samples alice and bob).
+* Get a copy of Calvin's self-signed CA certificate (certs/diyca_calvin.crt) 
+  onto the desktop computer where you will be using it later on with applications
+  (E.g. sample applications alice and bob).
+  I used Linux `rsync` to pull this certificate onto another computer:
+  	rsync pi@192.168.1.103:/opt/diyca/certs/diyca_calvin.crt $HOME/Downloads
 * bin/3.diyca_web_init.sh
 * Edit /etc/rc.local
-	 Append with:
+	 Just before the "exit 0", add the following lines:
 		# Launch DIY CA
-		cd /opt/diyca/app_diyca
+		cd /opt/diyca
 		bin/rc.diyca.sh
 
 ======================================================
 Launch DIYCA on the Raspberry Pi
 ======================================================
 
-* REBOOT
+	sudo reboot
 
-======================================================
-First test with a browser
-======================================================
+===========================================================================
+The web server should be running.
+Test that a browser can connect and operate.
+===========================================================================
 
 That was the server.  Now, the clients on other machines
 who want CA services.
 
-Remember the CA certificate?  Time to load
-into a browser as a trusted authority.
+Remember the CA certificate?  Time to load the certificate into a browser 
+on another machine as trusted to "identify web sites" (Firefox-speak).
 
-For Firefox version 48.0 on Linux:
+For Firefox version 48.0 on Linux, this was the process:
 	Select preferences (URL = about:preferences).
 	Select "Advanced".
 	Select the "Certificates" tab.
 	Select "View Certificates".
 	Select the "Authorities" tab and click on "Import...".
 	That opens a "Select file" dialogue.
-    Select the diyca_calvin.crt file and click on "Open".
+    	Select the diyca_calvin.crt file and click on "Open".
 	Click on "Trust this CA to identify websites."
 	Exit from Firefox (necessary!).
 	Relaunch Firefox.
@@ -146,29 +182,41 @@ I put the following in the location window:
 
 	https://192.168.1.102:8080
 
-IMPORTANT: Make sure that the subjectAltName value in etup/diyca_web_cert.cfg
-is an *exact* match to the IP address in the browser location window.
+IMPORTANT - Make certain that:
+* The IP address in the browser location window is an *exact* match 
+to the subjectAltName value in bin/diyca_web_cert.cfg of the web server.
+* The port number in the browser location window is an *exact* match 
+to the PORT variable in app_web/diyca_web.cfg of the web server.
 
-That got me to the main menu and access to 
-all the menu functions which was my expectation.
+That got me to the login page which was my expectation.  If this is the first time, click on
+"register" and set up a user.  When registration completes, you are automatically logged in.
 
-Firefox on my wife's Mac laptop: Ditto.  Note that Firefox on the Mac 
+Firefox on my wife's Mac laptop: Everything worked exactly as on Linux.  Note that Firefox on the Mac 
 does not use the Apple keychain utility!
 
 After importing diyca_calvin.crt with the Apple keychain utility and marking it
-as trusted for web operations, I was able to access the diyca server main menu 
+as trusted for web operations, I was able to access the diyca server Login menu 
 from Safari and Chrome on wife's Mac laptop.
 
 Sorry, I have no Windows machine so I cannot try MSIE.
 
 ======================================================
+Test with the sample applications, alice and bob
+======================================================
+
+*** COMING SOON ***
+
+======================================================
 External references for 3rd party tools
 ======================================================
 
-[1] Python pip utility: https://pip.pypa.io/en/stable/
-[2] Python web toolkit "flask": http://flask.pocoo.org/
-[3] OpenSSL: https://www.openssl.org/
-[4] Python interface to OpenSSL: https://pypi.python.org/pypi/pyOpenSSL
-[5] Minimalist database: http://sqlite.org/
-[6] DNS functions: http://www.dnspython.org/
-
+* Python 2 language reference: https://docs.python.org/2/reference/
+* Python 2 standard library reference: https://docs.python.org/2/library/
+* Python pip utility: https://pip.pypa.io/en/stable/
+* Python web toolkit "flask": http://flask.pocoo.org/
+* OpenSSL: https://www.openssl.org/
+* Python interface to OpenSSL: https://pypi.python.org/pypi/pyOpenSSL/
+* "Minimalist database": http://sqlite.org/
+* DNS functions: http://www.dnspython.org/
+* Git reference: http://gitref.org/
+* Guide to github.com: https://guides.github.com/activities/hello-world/ 
