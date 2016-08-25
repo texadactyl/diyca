@@ -35,18 +35,6 @@ app = Flask(MYNAME,
 
 #------------ Internal procedures ------------------------------------
 
-# Catch termination signals
-def signal_handler(arg_signal, arg_frame):
-	app.logger.warn("signal_handler: Caught signal {%d}", arg_signal)
-	util.dbclose()
-	func = request.environ.get('werkzeug.server.shutdown')
-	if func is None:
-		app.log.error("signal_handler: FAILED: request.environ.get('werkzeug.server.shutdown')")
-		app.logger.warn("signal_handler: Executing a sys.exit(0) instead")
-		sys.exit(0)
-	app.logger.warn("signal_handler: Doing a 'werkzeug.server.shutdown'")
-	func()
-
 # Uploaded file: allowed file extension (type)?
 def allowed_file(filename):
 	if '.' not in filename:
