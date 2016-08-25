@@ -6,7 +6,7 @@ The inspiration of this project is the myriad of Internet of Things (IoT) projec
 * Partners are using weak cryptography (E.g. RC4 or Single-DES) and there is no secure methodology of installing or managing the secret keys.  E.g. coding the secret keys as program constants.
 * Partners are using strong secret key cryptography but there is no secure methodology of installing or managing the secret keys.  E.g. The secret keys are never changed.
 
-Even when developers agree to securely use public key infrastructure and strong cryptography, I have seen cases where they stub this aspect out of their project during unit testing.  This can result in umpleasant surprises and lead to project delays when the stubs are later replaced with operational code.  Better to design and develop a project from the very beginning as it is intended to be in production.
+Even when developers agree to securely use public key infrastructure and strong cryptography, I have seen cases where they stub this aspect out of their project during unit testing.  This just puts off the inevitable and cause project delays when the stubs are later replaced with operational code.  Better to design and develop a project from the very beginning as it is intended to be in production.
 
 Therefore, the primary goal of this project is to allow developers to unit test programs which make use of X509 certificate based authentication and cryptography.  Thus, when it is time to migrate to more stringent testing environments (E.g. integrated system testing and user acceptance testing), the only thing new will be the target environment details since the developers will have gained experience with a Certificate Authority, certificates, and making use of the user's private key.
 
