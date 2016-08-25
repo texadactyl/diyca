@@ -11,9 +11,9 @@ logger -i -t $MYNAME "Begin"
 # The empty allow_nonroot file is only for debugging.
 # Normally, it is not present.
 if [ ! -r allow_nonroot ]; then
-	UID=`id -u $USER`
-	if [ $UID -ne 0 ]; then
-		logger -i -t $MYNAME "*** Expected User ID = 0; observed USER=$USER, ID=$UID"
+	USERID=`id -u $USER`
+	if [ $USERID -ne 0 ]; then
+		logger -i -t $MYNAME "*** Expected User ID = 0; observed USER=$USER, ID=$USERID"
 		exit 86
 	fi
 fi
