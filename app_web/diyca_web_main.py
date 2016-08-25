@@ -10,7 +10,7 @@ from logging.handlers import TimedRotatingFileHandler
 # 3rd party imports
 from werkzeug.utils import secure_filename
 from flask import Flask, session, request, render_template
-from flask import make_response, send_from_directory
+from flask import make_response, send_file
 
 # Web Server app imports
 import diyca_web_utilities as util
@@ -334,9 +334,10 @@ def web_request_sign_csr():
 		app.logger.error("Failed to remove CSR {%s} for user {%s}, reason: {%s}", csr_filepath, userid, repr(e))
 		# Do not alarm the user
 	# Download CRT file to user
-	return send_from_directory(SIGNER_FOLDER,
-								crt_filename,
-								mimetype='text/crt')
+	return send_file(crt_filepath, 
+						mimetype='application/pkix-cert',
+						attachment_filename=crt_filename,
+						as_attachment=True)
 
 #------------ Begin Launched Program ------------------------------------
 
