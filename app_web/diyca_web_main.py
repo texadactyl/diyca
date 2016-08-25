@@ -154,7 +154,9 @@ def web_request_register():
 									frm_email = email,
 									frm_password1 = "",
 									frm_password2 = "",
-									frm_status = "* INVALID EMAIL ADDRESS *")
+									frm_status = "* INVALID E		response.set_cookie(SESSION_COOKIE_NAME, "", expires=0)
+		session.clear()
+MAIL ADDRESS *")
 		app.logger.error("web_request_register: userid {%s / %s} provided an INVALID EMAIL ADDRESS", userid, email)
 		return ensure_no_caching(rendered), 200
 	# Hash the first password field (Javascript in the register_form ensured that they are equal)
@@ -185,11 +187,14 @@ def web_request_selected():
 		userid = session[SESSION_USERID]
 		email = session[SESSION_EMAIL]
 	else:
-		# No current session - impossible!
-		text = "web_request_selected: No current session; logged out"
-		app.logger.error(text)
-		response = build_logout_response("<h3>*** " + text + "</h3>")
-		return response, 400
+		# Session Timeout
+		app.logger.error("web_request_selected: session expired")
+		rendered = render_template("login_form.html", 
+									frm_uname = UNAME,
+									frm_userid = userid,
+									frm_password = "",
+									frm_status = "* PREVIOUS SESSION EXPIRED *")
+		return ensure_no_caching(rendered), 200
 	function = request.form["function"]
 	if app.debug:
 		app.logger.debug("web_request_selected: form with function {%s} received", function)
@@ -231,11 +236,14 @@ def web_request_change_password():
 		userid = session[SESSION_USERID]
 		email = session[SESSION_EMAIL]
 	else:
-		# Not in session - impossible!
-		text = "web_request_change_password(): No current session; logged out"
-		app.logger.error(text)
-		response = build_logout_response("<h3>*** " + text + "</h3>")
-		return response, 400
+		# Session Timeout
+		app.logger.error("web_request_change_password: session expired")
+		rendered = render_template("login_form.html", 
+									frm_uname = UNAME,
+									frm_userid = userid,
+									frm_password = "",
+									frm_status = "* PREVIOUS SESSION EXPIRED *")
+		return ensure_no_caching(rendered), 200
 	# Hash the current password
 	password = util.hash_a_secret(request.form["password"])
     # Get database row for this userid
@@ -274,8 +282,18 @@ def web_request_change_password():
 # Sign an uploaded CSR file, yielding a CRT file
 @app.route("/signcsr", methods=["POST"])
 def web_request_sign_csr():
-	userid = session[SESSION_USERID]
-	email = session[SESSION_EMAIL]
+	if SESSION_USERID in session:
+		userid = session[SESSION_USERID]
+		email = session[SESSION_EMAIL]
+	else:
+		# Session Timeout
+		app.logger.error("web_request_sign_csr: session expired")
+		rendered = render_template("login_form.html", 
+									frm_uname = UNAME,
+									frm_userid = userid,
+									frm_password = "",
+									frm_status = "* PREVIOUS SESSION EXPIRED *")
+		return ensure_no_caching(rendered), 200
 	# Check for the impossible
 	if "file" not in request.files:
 		text = util.sprintf("web_request_sign_csr from user {%s}: 'file' missing from request.files", userid)
