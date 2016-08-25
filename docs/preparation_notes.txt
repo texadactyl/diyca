@@ -204,7 +204,7 @@ Sorry, I have no Windows machine so I cannot try MSIE.
 Test with the sample applications, alice and bob
 ======================================================
 
-*** COMING SOON ***
+See subdirectory "example.users".
 
 ======================================================
 External references for 3rd party tools
