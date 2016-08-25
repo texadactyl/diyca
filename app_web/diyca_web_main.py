@@ -154,9 +154,7 @@ def web_request_register():
 									frm_email = email,
 									frm_password1 = "",
 									frm_password2 = "",
-									frm_status = "* INVALID E		response.set_cookie(SESSION_COOKIE_NAME, "", expires=0)
-		session.clear()
-MAIL ADDRESS *")
+									frm_status = "* INVALID EMAIL ADDRESS *")
 		app.logger.error("web_request_register: userid {%s / %s} provided an INVALID EMAIL ADDRESS", userid, email)
 		return ensure_no_caching(rendered), 200
 	# Hash the first password field (Javascript in the register_form ensured that they are equal)
