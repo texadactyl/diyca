@@ -1,0 +1,112 @@
+"""
+alice: SSL client
+"""
+
+import os, socket, sys, time
+from OpenSSL import SSL, crypto
+import ConfigParser
+
+import utilities as util
+
+MYNAME = "alice"
+SECTION_NAME = "everything"
+MAX_RECEIVE = 2048
+
+# Examine the incoming server certificate
+def examine_certificate(conn, cert, errnum, depth, ok):
+	subject = crypto.X509Name(cert.get_subject())
+	common_name = subject.commonName
+	util.logger("Received certificate from server CN={%s}, depth={%d}", common_name, depth)
+	return ok
+
+#------------ Begin Main Program ------------------------------------
+if __name__ == "__main__":
+
+	if len(sys.argv) != 3:
+		print("Usage: python   alice.py   configuration-file   transmit-text-file")
+		sys.exit(86)
+	config_file = sys.argv[1]
+	input_file = sys.argv[2]
+	if not os.path.isfile(config_file):
+		util.oops("Cannot access config file {%s}", config_file)
+	try:
+		config = ConfigParser.SafeConfigParser()
+		config.read(config_file)
+		my_crt_file = config.get(SECTION_NAME, "my_crt_file")
+		if len(my_crt_file) < 1: 
+			util.oops("This is not a config file: {%s}", config_file)
+		my_key_file = config.get(SECTION_NAME, "my_key_file")
+		ca_crt_file = config.get(SECTION_NAME, "ca_crt_file")
+		server_addr = config.get(SECTION_NAME, "server_addr")
+		server_port = config.getint(SECTION_NAME, "server_port")
+		session_timeout = config.getint(SECTION_NAME, "session_timeout")
+		flag_verbose = config.getboolean(SECTION_NAME, "flag_verbose")
+	except Exception as err:
+		util.oops("Trouble with config file {%s}, reason: {%s}", config_file, repr(err))
+
+	# Initialize context
+	ctx = SSL.Context(SSL.SSLv23_METHOD)
+	#ctx.set_options(SSL.OP_NO_SSLv2)
+	#ctx.set_options(SSL.OP_NO_SSLv3)
+	ctx.set_verify(SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT,
+					examine_certificate)  				# Demand a client certificate
+	ctx.use_certificate_file(my_crt_file)		# Provide a client certificate
+	ctx.use_privatekey_file(my_key_file)		# My private key
+	ctx.load_verify_locations(ca_crt_file)		# I trust this CA
+	ctx.set_timeout(session_timeout)			# Set session timeout value
+
+	# Set up client connection to server
+	try:
+		util.logger("Server @ {%s:%d}", server_addr, server_port)
+		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		conn = SSL.Connection(ctx, sock)
+		conn.connect( (server_addr, server_port) )
+						
+	except Exception as err:
+		util.oops("Cannot create an SSL connection to {%s:%d}, reason: {%s}", server_addr, server_port, repr(err))
+
+	# Open input file
+	fd = None
+	try:
+		fd = open(input_file, "r")
+	except Exception as err:
+		util.oops("Cannot open file {%s}, reason: {%s}", input_file, repr(err))
+
+	#======================= MAIN LOOP ========================================
+	counter = 0
+	tstart = time.time()
+	while True:
+		try:
+			outline = fd.readline()
+			if not outline:
+				break   # EOF
+			outline = outline.rstrip('\n')
+			if outline == "":
+				outline = " "
+		except Exception as err:
+			util.oops("Cannot readline() with file {%s}, reason: {%s}", input_file, repr(err))
+		try:
+			conn.send(outline)
+			if flag_verbose:
+				util.logger("Sent{%d}: {%s}", counter, outline)
+			if counter == 0:
+				util.logger("Ciphers in use: {%s}, secret key nbits: {%s}, SSL/TLS version: {%s}",
+								conn.get_cipher_name(),
+								conn.get_cipher_bits(),
+								conn.get_cipher_version())
+			inline = (conn.recv(MAX_RECEIVE)).decode('utf-8')
+			counter = counter + 1
+			if flag_verbose:
+				util.logger("Received{%d}: {%s}", counter, inline)
+		except SSL.Error as err:
+			util.oops("SSL Connection died unexpectedly, reason: {%s}", repr(err))
+	tstop = time.time()
+	deltat = tstop - tstart
+
+	#================== End ====================================================
+	util.logger("Processed {%d} lines of input file {%s}", counter, input_file)
+	util.logger("Elapsed time = {%d} seconds", deltat)
+	conn.shutdown()
+	conn.close()
+	fd.close()
+

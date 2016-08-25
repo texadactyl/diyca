@@ -1,0 +1,12 @@
+Put Calvin's certificate in the "certs" subdirectory, parallel to "alice"
+and "bob".
+[Calvin is the Certificate Authority at the  diyca web server 
+running on the Raspberry Pi]
+
+E.g. cd certs; rsync pi@192.168.1.103:/opt/diyca/certs/diyca_calvin.crt .
+
+Using a browser, connect to the diyca web server and obtain 
+CRT files for alice and bob by using the "csr" function from the main menu.
+
+Copy or move the CRT files from your browser Downloads directory
+to the certs subdirectory.
