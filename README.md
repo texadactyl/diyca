@@ -1,4 +1,4 @@
-The contents of this git project constitutes a Do-It-Yourself Certificate Authority (diyca), suitable for unit testing (developer testing) just prior to entering integration system testing with a wider audience: more developers, end-users, and auditors.  A web server approach is used in obtaining an X.509 certificate signed by this unit testing CA, based on a Certificate Signing Request (CSR) provided by the user, employing a web browser (Firefox, Safari, etc.).
+This git project constitutes a Do-It-Yourself Certificate Authority (diyca), suitable for unit testing (developer testing) just prior to entering integration system testing with a wider audience: more developers, end-users, and auditors.  A web server approach is used in obtaining an X.509 certificate signed by this unit testing CA, based on a Certificate Signing Request (CSR) provided by the user, employing a web browser (Firefox, Safari, etc.).
 
 The inspiration of this project is the myriad of Internet of Things (IoT) projects that are often (not always) falling into one of the following categories of undesirable patterns:
 
