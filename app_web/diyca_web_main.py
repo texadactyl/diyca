@@ -44,9 +44,9 @@ def allowed_file(filename):
 # Create a web response from a rendered page that ensures no caching
 def ensure_no_caching(arg_rendered):
 	response = make_response(arg_rendered)
-	response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-	response.headers["Pragma"] = "no-cache"
-	response.headers["Expires"] = "0"
+	#response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+	#response.headers["Pragma"] = "no-cache"
+	#response.headers["Expires"] = "0"
 	return response
 
 # Render a main_form from userid, email address, and status text
