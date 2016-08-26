@@ -10,7 +10,7 @@ The inspiration of this project is the myriad of Internet of Things (IoT) projec
 
 Even when developers agree to securely use public key infrastructure and strong cryptography, I have seen cases where they stub this aspect out of their project during unit testing.  This just puts off the inevitable and may cause project delays when the stubs are later replaced with operational code.  Better to design and develop a project from the very beginning as it is intended to be in production.
 
-Therefore, the primary goal of this project is to allow developers to unit test programs which make use of X509 certificate based authentication and cryptography.  Thus, when it is time to migrate to more stringent testing environments (E.g. integrated system testing and user acceptance testing), the only thing new will be the target environment details since the developers will have gained experience with a Certificate Authority operations, X.509 certificates, and managing the user's private key.
+Therefore, the primary goal of this project is to allow developers to unit test programs which make use of X.509 certificate based authentication and cryptography.  Thus, when it is time to migrate to more stringent testing environments (E.g. integrated system testing and user acceptance testing), the only thing new will be the target environment details since the developers will have gained experience with a Certificate Authority operations, X.509 certificates, and managing the user's private key.
 
 This project is already proven running the web server on an Intel/AMD environment (Biostar Celeron board) and a Raspberry Pi 2 (ARM 32-bit processor with 1GB RAM).
 
