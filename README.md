@@ -24,7 +24,7 @@ Subfolders:
 * calvin - Self-signed Certificate Authority
 * certs - Calvin's certificate and the web server's certificate
 * docs - project documentation (admittedly, skimpy at the moment)
-* example.users - example SSL programs, "alice" and "bob", that use certificates signed by Calvin
+* example.users - example SSL programs that use certificates signed by Calvin, "alice" and "bob"
 * log - Holds all of the log files which cutoff at midnight; aged to keep a maximum of 10 files
 * signer - uploaded CSRs (temporarily) and downloaded CRTs (accumulating, for the moment)
 
