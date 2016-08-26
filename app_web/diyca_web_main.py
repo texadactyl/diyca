@@ -189,7 +189,7 @@ def web_request_selected():
 		app.logger.error("web_request_selected: session expired")
 		rendered = render_template("login_form.html", 
 									frm_uname = UNAME,
-									frm_userid = userid,
+									frm_userid = "",
 									frm_password = "",
 									frm_status = "* PREVIOUS SESSION EXPIRED *")
 		return ensure_no_caching(rendered), 200
@@ -238,7 +238,7 @@ def web_request_change_password():
 		app.logger.error("web_request_change_password: session expired")
 		rendered = render_template("login_form.html", 
 									frm_uname = UNAME,
-									frm_userid = userid,
+									frm_userid = "",
 									frm_password = "",
 									frm_status = "* PREVIOUS SESSION EXPIRED *")
 		return ensure_no_caching(rendered), 200
@@ -288,7 +288,7 @@ def web_request_sign_csr():
 		app.logger.error("web_request_sign_csr: session expired")
 		rendered = render_template("login_form.html", 
 									frm_uname = UNAME,
-									frm_userid = userid,
+									frm_userid = "",
 									frm_password = "",
 									frm_status = "* PREVIOUS SESSION EXPIRED *")
 		return ensure_no_caching(rendered), 200
