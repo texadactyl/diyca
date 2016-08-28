@@ -6,7 +6,7 @@
 # Larry Dighera: Mon Dec 23 04:07:23 PST 2013
 # Larry Dighera: Mon Aug 10 14:02:46 PDT 2015: Added degree symbols, over-temperature based on degrees C so it will work without bc
 # Richard Elkins: 2016-08-28:
-#   * Checked for installation of `bc`.  Proceed with installation if not present which fails if no Internet connection).
+#   * Checked for installation of `bc`.  Proceed with installation if not present (which fails if no Internet connection).
 #   * Miscellaneous readability
 #   * Deleted f2c() and addcomma() because they are never used
 #   * Deleted c2f() because it produces syntax errors and Farenheit is not useful in this context
