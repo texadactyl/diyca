@@ -3,7 +3,7 @@ DIYCA - Main Web Program
 """
 
 # Python imports
-import sys, os, signal, socket, shutil
+import sys, os, socket, shutil
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
@@ -251,7 +251,7 @@ def web_request_change_password():
 		text = util.sprintf("web_request_change_password: user {%s} NOT FOUND; logged out", userid)
 		app.logger.error(text)
 		response = build_logout_response("<h3>*** " + text + "</h3>")
-		return "<h3>"+text+"</h3>", 400
+		return response, 400
 	# Extract row columns for userid
 	(dummy, email, db_password, stamp) = row
 	# Valid password entered?

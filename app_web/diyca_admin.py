@@ -3,7 +3,7 @@ DIYCA - Admin Program
 """
 
 # Python imports
-import sys, os, signal, hashlib, base64
+import sys, os, signal
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
@@ -47,7 +47,7 @@ def killer():
 		pid = -1
 		try:
 			pid = int(str_pid)
-		except Exception as e:
+		except:
 			with app.app_context():
 				app.logger.error("PID string (%s) is not an integer", str_pid)
 			return

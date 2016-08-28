@@ -234,6 +234,6 @@ def dbclose():
 		dbconn.close()
 		app.logger.info("dbclose: Closed database")
 	except EnvironmentError as e:
-		app.logger.error ("dbclose: Database %s failed to commit or close, reason: {%s}", arg_dbpath, repr(e))
+		app.logger.error ("dbclose: Database failed to commit or close, reason: {%s}", repr(e))
 		return
 
