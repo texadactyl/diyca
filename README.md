@@ -18,7 +18,7 @@ LICENSING
 
 This is *NOT* commercial software; instead, usage is covered by the GNU General Public License version 3 (2007).  In a nutshell, please feel free to use the project and share it as you will but please don't sell it.  Thanks!
 
-See the license.txt and gplv3.txt files for the GNU licensing information.
+See the LICENSE file for the GNU licensing information.
 
 GETTING STARTED
 
