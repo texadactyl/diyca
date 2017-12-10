@@ -45,6 +45,11 @@ if [ $? -ne 0 ]; then
 	logger -s -t $MYNAME "*** failed to touch db/index"
 	exit 86
 fi
+touch db/index.attr
+if [ $? -ne 0 ]; then
+	logger -s -t $MYNAME "*** failed to touch db/index.attr"
+	exit 86
+fi
 openssl rand -hex 16  > db/serial
 if [ $? -ne 0 ]; then
 	logger -s -t $MYNAME "*** failed to openssl rand -hex 16 to db/serial"
