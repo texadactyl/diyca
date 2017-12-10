@@ -166,7 +166,7 @@ who want CA services.
 Remember the CA certificate?  Time to load the certificate into a browser 
 on another machine as trusted to "identify web sites" (Firefox-speak).
 
-For Firefox version 48.0 on Linux, this was the process:
+For Firefox version 48.0 on Linux (adapt for subsequent versions), this was the process:
 	Select preferences (URL = about:preferences).
 	Select "Advanced".
 	Select the "Certificates" tab.
