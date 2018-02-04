@@ -34,6 +34,8 @@ if [ $? -ne 0 ]; then
 	logger -s -t $MYNAME "*** failed to cd to calvin"
 	exit 86
 fi
+#
+# Fixed issue #5: Added parameters -extfile and -extensions
 openssl ca -batch \
 	-cert $CA_CERT_FILE \
 	-config $CA_CERT_CONFIG \
