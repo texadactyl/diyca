@@ -36,10 +36,12 @@ if [ $? -ne 0 ]; then
 fi
 openssl ca -batch \
 	-cert $CA_CERT_FILE \
-    -config $CA_CERT_CONFIG \
+	-config $CA_CERT_CONFIG \
+	-extfile $USER_CERT_CONFIG \
+	-extensions ext \
 	-keyfile $CA_KEY_NAME \
-    -in $USER_CSR \
-    -out $USER_OUT_CRT
+	-in $USER_CSR \
+	-out $USER_OUT_CRT
 if [ $? -ne 0 ]; then
 	logger -s -t $MYNAME "*** failed to sign the USER_CSR"
 	exit 86
