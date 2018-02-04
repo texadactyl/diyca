@@ -164,7 +164,9 @@ That was the server.  Now, the clients on other machines
 who want CA services.
 
 Remember the CA certificate?  Time to load the certificate into a browser 
-on another machine as trusted to "identify web sites" (Firefox-speak).
+on another machine as trusted to "identify web sites" (Firefox-speak).  
+
+*IMPORTANT* When you import the CA certificate (diyca "Calvin") into your browser, make sure that it goes into the trusted/authority section *AND* it is enabled for web server authentication.
 
 For Firefox version 48.0 on Linux (adapt for subsequent versions), this was the process:
 	Select preferences (URL = about:preferences).
