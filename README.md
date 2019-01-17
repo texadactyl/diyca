@@ -40,4 +40,5 @@ The starting point with this project is the docs/preparation_notes.txt file.  Ju
 Feel free to contact richard.elkins@gmail.com for inquiries and issues, especially if you find any bugs.  I'll respond as soon as I can.
 
 Richard Elkins
-Dallas, Texas, USA, 3rd Rock, Sol
+
+Dallas, Texas, USA, 3rd Rock, Sol, ...
