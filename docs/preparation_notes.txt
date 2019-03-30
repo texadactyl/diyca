@@ -170,17 +170,26 @@ on another machine as trusted to "identify web sites" (Firefox-speak).
 make sure that it goes into the trusted/authority section 
 *AND* it is enabled for web server authentication.
 
-For Firefox version 48.0 on Linux (adapt for subsequent versions), this was the process:
+For Firefox, this was my experience on Linux:
 	Select preferences (URL = about:preferences).
-	Select "Advanced".
-	Select the "Certificates" tab.
+	Select "Privacy & Security".
 	Select "View Certificates".
 	Select the "Authorities" tab and click on "Import...".
 	That opens a "Select file" dialogue.
-    	Select the diyca_calvin.crt file and click on "Open".
+    	Locate and select the diyca_calvin.crt file and click on "Open".
 	Click on "Trust this CA to identify websites."
 	Exit from Firefox (necessary!).
 	Relaunch Firefox.
+
+For Chrome, this was my experience on Linux:
+    Click on settings.
+    Select Advanced.
+    Select Manage certificates.
+    Click on Authorities.
+    Click on IMPORT.
+	That starts an "Open file" dialogue.
+    	Locate and select the diyca_calvin.crt file and click on "Open".
+    Click on "Trust this CA to identify websites."
 
 Test: Go visit the diyca server.  On another machine in my house, 
 I put the following in the location window:
