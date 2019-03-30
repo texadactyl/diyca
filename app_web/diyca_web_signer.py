@@ -4,6 +4,7 @@
 '''
 
 import os
+import uuid
 from OpenSSL import crypto
 from flask import current_app as app
 
@@ -70,7 +71,7 @@ def sign_csr(arg_userid, arg_csr_path, arg_crt_path):
 	# Sign CSR, giving the CRT
 	try:
 		cert = crypto.X509()
-		cert.set_serial_number(42)
+		cert.set_serial_number(int(uuid.uuid4()))
 		cert.gmtime_adj_notBefore(0)
 		cert.gmtime_adj_notAfter(EXPIRY_PERIOD)
 		cert.set_issuer(CAcertificate.get_subject())
