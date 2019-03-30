@@ -31,7 +31,7 @@ def get_file_contents(arg_path):
 
 #=================================================================
 # Sign a CSR file for the given user, 
-# storing the result in the CRT file
+# storing the result in the CRT file.
 #
 # Returns
 #	True/False:	Success or failure
