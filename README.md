@@ -35,7 +35,7 @@ Subfolders:
 * log - Holds all of the log files which cutoff at midnight; aged to keep a maximum of 10 files
 * signer - uploaded CSRs (temporarily) and downloaded CRTs (accumulating, for the moment)
 
-The starting point with this project is the docs/preparation_notes.txt file.  Just follow the instructions of this note.  No need to directly download from this github project.
+The starting point with this project is the docs/preparation_notes.txt file.  Just follow the instructions of this note.
 
 Feel free to contact richard.elkins@gmail.com for inquiries and issues, especially if you find any bugs.  I'll respond as soon as I can.
 
