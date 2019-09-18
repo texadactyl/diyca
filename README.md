@@ -1,4 +1,5 @@
-OVERVIEW
+Overview
+--------
 
 This git project constitutes a Do-It-Yourself Certificate Authority (diyca), suitable for unit testing (developer testing) just prior to entering integration system testing with a wider audience: more developers, end-users, and/or auditors.  A web server approach is used in obtaining an X.509 certificate signed by this unit testing CA, based on a Certificate Signing Request (CSR) provided by the user, employing a web browser (Firefox, Safari, etc.).
 
@@ -14,13 +15,15 @@ Therefore, the primary goal of this project is to allow developers to unit test 
 
 This project is already proven running the web server on an Intel/AMD environment (Biostar Celeron board) and a Raspberry Pi 2 (ARM 32-bit processor with 1GB RAM).
 
-LICENSING
+Licensing
+---------
 
 This is *NOT* commercial software; instead, usage is covered by the GNU General Public License version 3 (2007).  In a nutshell, please feel free to use the project and share it as you will but please don't sell it.  Thanks!
 
 See the LICENSE file for the GNU licensing information.
 
-GETTING STARTED
+Getting Started
+---------------
 
 Subfolders:
 
@@ -36,6 +39,14 @@ Subfolders:
 * signer - uploaded CSRs (temporarily) and downloaded CRTs (accumulating, for the moment)
 
 The starting point with this project is the docs/preparation_notes.txt file.  Just follow the instructions of this note.
+
+Package Dependencies
+--------------------
+```
+flask
+OpenSSL
+werkzeug
+```
 
 Feel free to contact richard.elkins@gmail.com for inquiries and issues, especially if you find any bugs.  I'll respond as soon as I can.
 
