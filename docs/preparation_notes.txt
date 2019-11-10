@@ -8,11 +8,10 @@ System requirements and comments
 	- Architecture: Intel/AMD or ARM, 32-bit or 64-bit
 	- RAM recommendation: 1GB or more
 	- Recommendation: Raspberry Pi 2 or later
-	- To run on earlier RPIs, do not add tmpfs entries to /etc/fstab
 		(Guess: RPi earlier than 2 could be made to work)
 * Operating system: Unix, Linux, or MacOSX
 	(I never have tried diyca on a flavor of Intel/AMD Windows)
-* No desktop is required.  E.g. Raspbian Jessie Lite works just fine.  On the other hand, for occasional desktop use, Raspian Jessie would be a good choice.
+* No desktop is required.  E.g. Raspbian Buster Lite works just fine.  On the other hand, for occasional desktop use, Raspian Buster would be a good choice.
 * Software tools
 	- Python 2.7.x or later (Version 3 is not used)
 	- git (deb package or the rpm equivalent)
@@ -24,7 +23,7 @@ System requirements and comments
 	- dnspython (install with `pip`)
 
 What follows are set up instructions for the Raspberry Pi using 
-a Linux distribution with a Debian package manager.
+a Raspbian Buster.
 
 Instructions for other Linux and Unix environments are similar
 but with notable differences (E.g. Fedora is RPM-based and, hence, 
@@ -35,7 +34,7 @@ On a Linux, Mac, or Windows desktop system, prepare the MicroSD
 ===============================================================
 
 * Go to https://www.raspberrypi.org/downloads/raspbian/
-* Download Raspbian Jessie Lite or Raspbian Jessie
+* Download Raspbian Buster Lite or Raspbian Buster with desktop
 * Extract img from zip
 * Write img to the MicroSD device:
      - Insert the MicroSD into a MicroSD adapter which has a USB plug for your desktop computer.
@@ -44,15 +43,15 @@ On a Linux, Mac, or Windows desktop system, prepare the MicroSD
        Your desktop O/S is probably not forgiving if you accidentally overwrite something else!
        On Linux and Unix,  you can use the `mount` command without parameters 
        to show what was just mounted where.
-     - For me, on Linux, my device turned out to be /dev/sdb and two partitions {sdb1, sdb2} were
+     - For me, on Xubuntu Linux, my device turned out to be /dev/sdb and two partitions {sdb1, sdb2} were
        automounted when I inserted the adapter.
      - You must unmount any old partitions on the MicroSD drive before using a disk write tool like
        `dd` (Linux and Unix).
-     - For me, on Linux, recently (an example, only), the following is how I proceeded:
+     - For me, on Xubuntu Linux, the following is how I proceeded:
           sudo umount /dev/sdb1     # Unmount an old boot partition
           sudo umount /dev/sdb2     # Unmount an old "/" partition
-          sudo dd if=/home/elkins/Downloads/2016-05-27-raspbian-jessie-lite.img of=/dev/sdb bs=4M
-     - Note that I used "sdb" (entire device) and not "sdb1" (partition) as the target of `dd`.
+          sudo dd if=$HOME/Downloads/WHATEVER-YOU-EXTRACTED.img of=/dev/sdb bs=4M status=progress conv=fsync
+     - Important to note that I used "sdb" (entire device) and not "sdb1" (partition) as the target of `dd`.
 
 ===================================================================
 Set up on the Raspberry Pi target system
@@ -60,45 +59,48 @@ Set up on the Raspberry Pi target system
 
 * Install MicroSD in RPi and perform 1st boot
 
-* Login as pi with password=raspberry
+Next, install the MicroSD card on the Pi:
 
-* Optionally, change password of user pi and the root:
-	passwd
-	sudo passwd root
+    * Insert the MicroSD card into the underside slot on the Pi, gently but firmly.
+    * Attach the keyboard, mouse, and monitor.
+    * Finally, connect power (There is no power switch).
 
-* Non-UK only (E.g. USA):
-	sudo dpkg-reconfigure:
-		 locales             # for USA: set to en_US.UTF-8
-		 tzdata              # set to local timezone as appropriate for your region
-		 keyboard-configuration   # for USA: set to Generic 104-key PC, English (US) layout
-	sudo reboot
+When it finishes the boot up process, you should see a "Welcome to Raspberry Pi" window on top of the desktop.
+You are user "pi".
+Click on "Next".
 
-* If at least 1GB RAM available (E.g. Raspberry Pi 2 or later), 
-  then, as the root, edit /etc/fstab
-   Append with:
-	# Save wear and tear on the MicroSD and run somewhat faster!
-	tmpfs /tmp tmpfs defaults,noatime,nosuid,size=256m 0 0
-	tmpfs /run tmpfs defaults,noatime,nosuid,size=64m 0 0
-      
-* sudo reboot
+On the "Set Country" frame, set up the country, language, and timezone.
+Click on "Next".
 
-* I won't bother with the following unless I see some benefit in the future:
-   - Overclocking  
-   - HDMI enhancements
+On the "Change Password" frame, set the new password for user pi.
+Click on "Next".
 
-* Fully utilize the MicroSD and install SSH daemon services
-   sudo -i 
-   raspi-config
-      > 1 Expand Filesystem
-      > 9 Advanced Options
-         > A4 SSH (Enable the SSH server)
+On the "Set Up Screen" frame, follow the instructions about the potential black border.
+Click on "Next".
+
+On the "Update Software" frame, click on "Next".
+Be patient.  This takes awhile.
+
+On the "Setup Complete" frame, click on "Restart".
+When it finishes the boot up process, you should see just the desktop.
+You are user "pi".
+
+* Set the root password:
+
+    sudo passwd root
+
+* Enable SSH:
+
+   sudo raspi-config
+      > 5 Interfacing Options
+         > P2 SSH (Enable the SSH server)
 
 * Set up wifi or Wired Ethernet with a fixed IP address.  
   For wired:
    1) Leave /etc/network/interfaces exactly as supplied
    2) Append /etc/dhcpcd.conf with static stuff
 		For example:
-			Interface wlan0
+			Interface eth0
 			static ip_address=192.168.1.103
 			static routers=192.168.1.1
 			static domain_name_servers=192.168.1.1
