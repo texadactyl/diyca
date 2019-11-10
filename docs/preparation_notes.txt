@@ -230,10 +230,10 @@ External references for 3rd party tools
 * Python 2 language reference: https://docs.python.org/2/reference/
 * Python 2 standard library reference: https://docs.python.org/2/library/
 * Python pip utility: https://pip.pypa.io/en/stable/
-* Python web toolkit "flask": http://flask.pocoo.org/
+* Python web toolkit "flask": https://palletsprojects.com/p/flask/
 * OpenSSL: https://www.openssl.org/
 * Python interface to OpenSSL: https://pypi.python.org/pypi/pyOpenSSL/
 * "Minimalist database": http://sqlite.org/
-* DNS functions: http://www.dnspython.org/
-* Git reference: http://gitref.org/
+* DNS functions for Python: http://www.dnspython.org/
+* Git reference documents: https://git-scm.com/docs
 * Guide to github.com: https://guides.github.com/activities/hello-world/ 
