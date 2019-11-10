@@ -1,7 +1,8 @@
 Overview
 --------
 
-*** The next version will be Python 3 only ***
+*** The next version will be Python 3 only. ***
+*** It is very important to follow docs/preparation_notes.txt precisely. ***
 
 This git project constitutes a Do-It-Yourself Certificate Authority (diyca), suitable for unit testing (developer testing) just prior to entering integration system testing with a wider audience: more developers, end-users, and/or auditors.  A web server approach is used in obtaining an X.509 certificate signed by this unit testing CA, based on a Certificate Signing Request (CSR) provided by the user, employing a web browser (Firefox, Safari, etc.).
 
@@ -40,7 +41,7 @@ Subfolders:
 * log - Holds all of the log files which cutoff at midnight; aged to keep a maximum of 10 files
 * signer - uploaded CSRs (temporarily) and downloaded CRTs (accumulating, for the moment)
 
-The starting point with this project is the docs/preparation_notes.txt file.  Just follow the instructions of this note.
+The starting point with this project is the docs/preparation_notes.txt file.  Follow the instructions therein precisely with possible exceptions related to Raspbian set up changes or bugs that you found (please open an issue).
 
 Package Dependencies
 --------------------
