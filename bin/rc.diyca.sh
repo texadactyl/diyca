@@ -18,6 +18,6 @@ if [ ! -r allow_nonroot ]; then
 	fi
 fi
 #---------------------------------
-(cd app_web; python diyca_web_main.py) &
+(cd app_web; python3 diyca_web_main.py) &
 #---------------------------------
 logger -i -t $MYNAME "End - web server launched"
