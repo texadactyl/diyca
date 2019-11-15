@@ -32,7 +32,7 @@ if [ $? -ne 0 ]; then
 	logger -i -t $MYNAME "*** Failed to cd to app_web"
 	exit 86
 fi
-python diyca_admin.py
+python3 diyca_admin.py
 if [ $? -ne 0 ]; then
 	logger -i -t $MYNAME "*** diyca_admin.py failed"
 	exit 86
