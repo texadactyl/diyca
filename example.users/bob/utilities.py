@@ -6,7 +6,7 @@ def logger(arg_format, *arg_list):
 	now = time.strftime("%Y-%m-%d %H:%M:%S ", time.localtime())
 	fmt = "{nstr} {fstr}".format(nstr=now, fstr=arg_format)
 	buffer = fmt %arg_list
-	print buffer
+	print(buffer)
 
 # Log and abort
 def oops(arg_format, *arg_list):

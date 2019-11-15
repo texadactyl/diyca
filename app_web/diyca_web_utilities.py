@@ -33,8 +33,8 @@ def oops(arg_format, *arg_list):
 # Secure-hash a secret
 #=====================
 def hash_a_secret(arg_secret):
-	hashish = hashlib.sha512(arg_secret)
-	return base64.b64encode(hashish.digest())
+	hashish = hashlib.sha512(arg_secret.encode('utf-8'))
+	return base64.b64encode(hashish.digest()).decode('utf-8')
 
 #=====================
 # Similar to C sprintf
@@ -131,12 +131,11 @@ def dbuser_add(arg_userid, arg_password, arg_email):
 	try:
 		dbcursor = dbconn.cursor() 
 		stamp = epoch2dbfmt(time.time())
-		dbcursor.execute("INSERT INTO {tn} ('{cn1}', '{cn2}','{cn3}','{cn4}') VALUES ('{cv1}','{cv2}','{cv3}','{cv4}')" \
-						 .format(tn=ddl.TBL_USER, \
-								 cn1=ddl.FLD_USER_ID, cv1=arg_userid, \
-								 cn2=ddl.FLD_USER_PSWD, cv2=arg_password, \
-								 cn3=ddl.FLD_USER_EMAIL, cv3=arg_email, \
-								 cn4=ddl.FLD_USER_TSTAMP, cv4=stamp))
+		sql = "INSERT INTO {tn} ('{cn1}', '{cn2}','{cn3}','{cn4}') VALUES ('{cv1}','{cv2}','{cv3}','{cv4}')".format(
+			tn=ddl.TBL_USER, cn1=ddl.FLD_USER_ID, cv1=arg_userid,
+			cn2=ddl.FLD_USER_PSWD, cv2=arg_password, cn3=ddl.FLD_USER_EMAIL,
+			cv3=arg_email, cn4=ddl.FLD_USER_TSTAMP, cv4=stamp)
+		dbcursor.execute(sql)
 		dbconn.commit()
 	except sqlite3.Error as e:
 		app.logger.error("dbuser_add: INSERT {%s,%s} failed, reason: {%s}", arg_userid, arg_email, repr(e))
@@ -181,7 +180,7 @@ def dbinit():
 						 .format(tn=ddl.TBL_USER, cn=ddl.FLD_USER_PSWD, ct="TEXT"))
 		dbcursor.execute("ALTER TABLE {tn} ADD COLUMN '{cn}' {ct}" \
 						 .format(tn=ddl.TBL_USER, cn=ddl.FLD_USER_TSTAMP, ct="TEXT"))
-	except sqlite3.Error, e:
+	except sqlite3.Error as e:
 		oops ("dbinit failed, reason: {%s}", e.args[0])
 
 #==============
@@ -213,7 +212,7 @@ def dbopen(arg_dbpath):
 	# Connect to database
 	try:
 		dbconn = sqlite3.connect(arg_dbpath)
-	except sqlite3.Error, e:
+	except sqlite3.Error as e:
 		oops ("dbopen: sqlite3.connect{%s} failed, reason: {%s}", arg_dbpath, repr(e))
 	# If just created, initialize the database
 	if flag_init:

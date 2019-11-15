@@ -435,7 +435,12 @@ if __name__ == "__main__":
 						ssl_context=context, 
 						threaded=False, 
 						use_reloader=False)
-	except socket.error, (value,message):
+	except OSError as exc:
 		with app.app_context():
-			util.oops("Socket error (%d,%s) trying to bind tcp_port (%d)",
-						value, message, tcp_port)
+			util.oops(
+				"%s error (%d,%s) trying to bind tcp_port (%d)",
+				type(exc).__name__,
+				exc.args[0],
+				exc.args[1],
+				tcp_port
+			)
