@@ -7,4 +7,4 @@ fi
 
 # record size = 256
 # Record count = 10000
-python datagen.py test_transmission.txt 256 10000
+python3 datagen.py test_transmission.txt 256 10000
