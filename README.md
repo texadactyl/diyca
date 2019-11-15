@@ -1,7 +1,7 @@
 Overview
 --------
 
-*** The next version will be Python 3 only. ***
+*** Python 3 only ***
 
 *** It is very important to follow docs/preparation_notes.txt precisely. ***
 
