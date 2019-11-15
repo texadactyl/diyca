@@ -6,5 +6,4 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Start alice, the SSL client"
-python alice.py alice_run.cfg test_transmission.txt
-
+python3 alice.py alice_run.cfg test_transmission.txt
