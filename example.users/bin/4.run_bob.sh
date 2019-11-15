@@ -6,5 +6,4 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Start bob, the SSL server"
-python bob.py bob_run.cfg
-
+python3 bob.py bob_run.cfg
