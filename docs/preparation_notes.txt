@@ -119,7 +119,7 @@ Get some packages - see references at end of this document.
 
 * sudo apt -y install git python3-pip openssl sqlite3
 
-* sudo pip3 install flask dnspython pyopenssl sqlite3 werkzeug
+* sudo pip3 install flask dnspython pyopenssl werkzeug
 
 ======================================================
 Set up the diyca software on the Raspberry Pi
