@@ -17,7 +17,7 @@ System requirements and comments
 * Software tools
 	- Python 3.x or later (Version 2 is not supported)
 	- git (deb package or the rpm equivalent)
-	- python-pip3 (deb package or the rpm equivalent)
+	- python3-pip (deb package or the rpm equivalent)
 	- openssl (deb package or the rpm equivalent)
 	- sqlite3 (deb package or the rpm equivalent)
 	- dnspython, flask, pyOpenSSL, werkzeug (install with `pip3`) 
