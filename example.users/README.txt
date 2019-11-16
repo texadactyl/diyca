@@ -1,4 +1,4 @@
-The "example.users" directory tree under "diyca" hold 2 sample SSL applications:
+The "example.users" directory tree under "diyca" hold 2 sample TLS applications:
 
 	alice =======(TLS)=========> bob
     [client]                     [server]
