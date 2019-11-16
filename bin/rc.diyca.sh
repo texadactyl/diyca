@@ -1,8 +1,7 @@
 #!/bin/bash
 MYNAME=`basename $0`
 #
-# Launched by /etc/rc.local
-# Running under the root user
+# Launched by /etc/rc.local running under the root user
 # This start-up file produces entries in the Linux /var/log/syslog* files
 # Post start-up, the Python programs use log/diyca.log
 #    and echo log entries on stdout (if available)
