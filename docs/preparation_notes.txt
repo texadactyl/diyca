@@ -117,7 +117,7 @@ Get some packages - see references at end of this document.
 # The above step might run like a tortoise.
 # Also, if a new kernel is installed, don't bother rebooting just quite yet.
 
-* sudo apt -y install git python-pip3 openssl sqlite3
+* sudo apt -y install git python3-pip openssl sqlite3
 
 * sudo pip3 install flask dnspython pyopenssl sqlite3 werkzeug
 
