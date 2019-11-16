@@ -51,7 +51,7 @@ External Package Dependencies
 ```
 dnspython
 flask
-pyopenssl
+pyOpenSSL
 werkzeug
 ```
 
