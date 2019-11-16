@@ -20,7 +20,7 @@ System requirements and comments
 	- python-pip3 (deb package or the rpm equivalent)
 	- openssl (deb package or the rpm equivalent)
 	- sqlite3 (deb package or the rpm equivalent)
-	- dnspython, flask, pyopenssl, sqlite3, werkzeug (install with `pip3`) 
+	- dnspython, flask, pyopenssl, werkzeug (install with `pip3`) 
 
 What follows are set up instructions for the Raspberry Pi using 
 a Raspbian Buster.
