@@ -37,4 +37,3 @@ if [ $? -ne 0 ]; then
 	logger -i -t $MYNAME "*** diyca_admin.py failed"
 	exit 86
 fi
-
