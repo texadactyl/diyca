@@ -11,7 +11,7 @@ bob simply echos anything sent to him back to the client.
 ================================================================
 
 Before you can run alice and bob, you need to do the following:
-	Install the Python OpenSSL module (`sudo pip install pyopenssl`).
+	Install the Python OpenSSL module (`sudo pip3 install pyopenssl`).
 	Generate a private key and a Certificate Signing Requests (CSR) for both.
 	Get Calvin (your CA) to sign the CSRs and return certificates for both.
 	Make sure that you have a copy of Calvin's trusted certificate.
