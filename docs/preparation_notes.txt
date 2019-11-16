@@ -20,7 +20,7 @@ System requirements and comments
 	- python-pip3 (deb package or the rpm equivalent)
 	- openssl (deb package or the rpm equivalent)
 	- sqlite3 (deb package or the rpm equivalent)
-	- dnspython, flask, pyopenssl, werkzeug (install with `pip3`) 
+	- dnspython, flask, pyOpenSSL, werkzeug (install with `pip3`) 
 
 What follows are set up instructions for the Raspberry Pi using 
 a Raspbian Buster.
@@ -119,7 +119,7 @@ Get some packages - see references at end of this document.
 
 * sudo apt -y install git python3-pip openssl sqlite3
 
-* sudo pip3 install flask dnspython pyopenssl werkzeug
+* sudo pip3 install flask dnspython pyOpenSSL werkzeug
 
 ======================================================
 Set up the diyca software on the Raspberry Pi
