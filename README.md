@@ -19,7 +19,7 @@ Even when developers agree to securely use public key infrastructure and strong 
 
 Therefore, the primary goal of this project is to allow developers to unit test programs which make use of X.509 certificate based authentication and cryptography.  Thus, when it is time to migrate to more stringent testing environments (E.g. integrated system testing and user acceptance testing), the only thing new will be the target environment details since the developers will have gained experience with a Certificate Authority operations, X.509 certificates, and managing the user's private key.
 
-This project is already proven running the web server on an Intel/AMD environment (Biostar Celeron board) and a Raspberry Pi 2 (ARM 32-bit processor with 1GB RAM).
+This project is already proven running the web server on an Intel/AMD environment (Biostar Celeron board) and a Raspberry Pi 2 & 3 (ARM 32-bit processor with 1GB RAM).
 
 Licensing
 ---------
@@ -33,7 +33,7 @@ Getting Started
 
 Subfolders:
 
-* app_web - Python 2 source code for the web server running in a Flask infrastructure
+* app_web - Python 3 source code for the web server running in a Flask infrastructure
             (see docs/preparation_notes.txt for references to all of the supporting software
             as well as how to install, test, etc.)
 * bin - Bash scripts for setting up diyca and other tools
@@ -46,11 +46,13 @@ Subfolders:
 
 The starting point with this project is the docs/preparation_notes.txt file.  Follow the instructions therein precisely with possible exceptions related to Raspbian set up changes or bugs that you found (please open an issue).
 
-Package Dependencies
---------------------
+External Package Dependencies
+-----------------------------
 ```
+dnspython
 flask
-OpenSSL
+pyopenssl
+sqlite3
 werkzeug
 ```
 
