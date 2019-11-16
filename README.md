@@ -3,6 +3,8 @@ Overview
 
 *** Python 3 only ***
 
+(Python 2 is deprecated in 2020)
+
 *** It is very important to follow docs/preparation_notes.txt precisely. ***
 
 This git project constitutes a Do-It-Yourself Certificate Authority (diyca), suitable for unit testing (developer testing) just prior to entering integration system testing with a wider audience: more developers, end-users, and/or auditors.  A web server approach is used in obtaining an X.509 certificate signed by this unit testing CA, based on a Certificate Signing Request (CSR) provided by the user, employing a web browser (Firefox, Safari, etc.).
