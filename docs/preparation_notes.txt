@@ -20,10 +20,10 @@ System requirements and comments
 	- python3-pip (deb package or the rpm equivalent)
 	- openssl (deb package or the rpm equivalent)
 	- sqlite3 (deb package or the rpm equivalent)
-	- dnspython, flask, pyOpenSSL, werkzeug (install with `pip3`) 
+	- dnspython, flask, pyOpenSSL, werkzeug (conda or pip3 packages) 
 
 What follows are set up instructions for the Raspberry Pi using 
-a Raspbian Buster.
+Linux distribution Raspbian Buster.
 
 Instructions for other Linux and Unix environments are similar
 but with notable differences (E.g. Fedora is RPM-based and, hence, 
@@ -119,7 +119,7 @@ Get some packages - see references at end of this document.
 
 * sudo apt -y install git python3-pip openssl sqlite3
 
-* sudo pip3 install flask dnspython pyOpenSSL werkzeug
+* Use conda or pip3 to install flask dnspython pyOpenSSL werkzeug
 
 ======================================================
 Set up the diyca software on the Raspberry Pi
@@ -190,7 +190,7 @@ For Firefox, this was my experience on Linux:
 	Select "View Certificates".
 	Select the "Authorities" tab and click on "Import...".
 	That opens a "Select file" dialogue.
-    Locate and select the diyca_calvin.crt file and click on "Open".
+        Locate and select the diyca_calvin.crt file and click on "Open".
 	Click on "Trust this CA to identify websites."
 	Exit from Firefox (necessary!).
 	Relaunch Firefox.
@@ -201,8 +201,7 @@ For Chrome, this was my experience on Linux:
     Select Advanced.
     Select Manage certificates.
     Click on Authorities.
-    Click on IMPORT.
-	That starts an "Open file" dialogue.
+    Click on IMPORT.  That starts an "Open file" dialogue.
     Locate and select the diyca_calvin.crt file and click on "Open".
     Click on "Trust this CA to identify websites."
 
@@ -242,12 +241,12 @@ External references for 3rd party tools
 
 * Python 3 language reference: https://docs.python.org/3/reference/
 * Python 3 standard library reference: https://docs.python.org/3/library/
+* Anaconda environment and conda: https://www.anaconda.com/distribution/
 * Python pip3 utility: https://pip.pypa.io/en/stable/
 * Python web toolkit "flask": https://palletsprojects.com/p/flask/
-* OpenSSL: https://www.openssl.org/
+* OpenSSL (SSL/TLS): https://www.openssl.org/
 * Python interface to OpenSSL: https://pypi.python.org/pypi/pyOpenSSL/
 * "Minimalist database": http://sqlite.org/
 * DNS functions for Python: http://www.dnspython.org/
 * Git reference documents: https://git-scm.com/docs
 * Guide to github.com: https://guides.github.com/activities/hello-world/ 
-
