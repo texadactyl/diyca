@@ -55,7 +55,7 @@ pyOpenSSL
 werkzeug
 ```
 
-Feel free to contact richard.elkins@gmail.com for inquiries and issues, especially if you find any bugs.  I'll respond as soon as I can.
+Feel free to open an issue for bugs and enhancement requests.  I'll respond as soon as I can.
 
 Richard Elkins
 
