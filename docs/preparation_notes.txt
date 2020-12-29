@@ -250,3 +250,80 @@ External references for 3rd party tools
 * DNS functions for Python: http://www.dnspython.org/
 * Git reference documents: https://git-scm.com/docs
 * Guide to github.com: https://guides.github.com/activities/hello-world/ 
+
+======================================================
+   Docker version
+======================================================
+
+To capsulate the application from anything on the actual system and generate a more repeatable environment a docker approach is a good practice. 
+This means we run the application bundled with all needs inside a container. This will give an environment which is always the same. 
+Docker is well documented. It is running well on any RPI system, once you have the correct base image. The base image must match the actual processor it is using. 
+
+Needed software
+* Docker is needed to build and run the container
+
+For any x86 debian install: 
+* apt-get install docker 
+On Raspbian the better way is to use the detection and setup script from docker
+* curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+
+Once docker is installed it can be tested using 
+* docker run hello-world
+There should be an cli ouput with information about docker. Once you see this, we are fine to 
+install diyca using docker. 
+
+
+From the root of the cloned repository we will execute
+* docker build --file ./docker/rpi/Dockerfile --tag diyca . (or --file ./docker/x86/Dockerfile)
+
+The command will tell docker, we want to create a new image. The file is holding all information about what to create. 
+The tag will help us to easily start the new image. 
+
+======================================================
+  Docker file and buildprocess
+======================================================
+
+The docker file is hodling all information about the image.
+The from is giving up the base. I used Balena, as it supports the RPI one the best at the moment. 
+
+We copy the whole actual workdir over to the new image.
+
+After this we will update apt and install what is needed to get diyca running. 
+I choose python3 packages over the pip ones, as RPI had some problems getting it build. 
+
+After the install we set up the example ca. This is done by running the scripts from bin directory. 
+Please have in mind, that it will use the configuration copied over earlier. This means we have what ever 
+configuration we actually use in the new container. Any change should be made prior building the docker container.
+
+Once we started the docker build, we see what is actually running. 
+All output is executed inside of the docker image. This means, we have the whole application encapsulated from what we 
+have on our actual system. This proves us to have a running container which will not be impacted from local changes. 
+
+Run the container using
+* docker run -p 8080:8080 --name diyca diyca:latest
+
+To get the root cert from the container we can copy it over using 
+* docker copy diyca:/opt/diyca/certs/diyca_calvin.crt .
+Uss the file like mentioned in the sections above. 
+
+
+======================================================
+  Docker bind mounts
+======================================================
+
+As mentioned above, the container will be created with the actuall configuration. This means, we will also have the only copy 
+our new root cert inside of the container. This can be a bit of an issue.
+
+To prevent this we can bind mount 2 folders into the container. This means we replace what ever is inside the folder on our container. 
+As all is removed we need to ecreate the configuration.
+
+For the first attempt run: 
+docker run -p 8080:8080 --name diyca -v /pathtoconfif/diyca_calvin_cert.cfg:/opt/diyca/bin/diyca_calvin_cert.cfg -v /pathtocerts/:/opt/diyca/certs diyca:latest /bin/bash -c 'service rsyslog restart && cd /opt/diyca && /opt/diyca/bin/1.diyca_cleanup.sh && /opt/diyca/bin/2.diyca_calvin_init.sh && /opt/diyca/bin/3.diyca_web_init.sh && cd app_web && python3 diyca_web_main.py'
+docker run -p 8080:8080 --name diyca -v /pathtoconfif/diyca_calvin_cert.cfg:/opt/diyca/bin/diyca_calvin_cert.cfg -v /pathtocerts/:/opt/diyca/certs diyca:latest /bin/bash -c 'service rsyslog restart && cd /opt/diyca/app_web && python3 diyca_web_main.py'
+
+This gives the change to make some changes after the initial build of the container. 
+
+
+The docker steps have been tested working on an RPI1. 
+If any other RPI is used a look at the balena site may be needed to get a running image. 
+https://www.balena.io/docs/reference/base-images/base-images/
