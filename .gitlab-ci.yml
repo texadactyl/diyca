@@ -29,5 +29,5 @@ build::docker_rpi:
   stage: build
 
   script:
-    - docker build --file docker/rpi/Dockerfile --tag "$CI_REGISTRY_IMAGE"-rpi . 
-    - docker push "$CI_REGISTRY_IMAGE"-rpi
+    - docker build --file docker/rpi/Dockerfile --tag "$CI_REGISTRY_IMAGE"/rpi . 
+    - docker push "$CI_REGISTRY_IMAGE"/rpi
