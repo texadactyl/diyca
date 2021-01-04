@@ -30,4 +30,4 @@ build::docker_rpi:
 
   script:
     - docker build --file docker/rpi/Dockerfile --tag "$CI_REGISTRY_IMAGE"-rpi . 
-    - docker push "$CI_REGISTRY_IMAGE"
+    - docker push "$CI_REGISTRY_IMAGE"-rpi
