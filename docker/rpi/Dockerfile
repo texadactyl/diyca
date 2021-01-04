@@ -1,8 +1,8 @@
-FROM balenalib/raspberry-pi-python
+FROM balenalib/raspberry-pi
 
 COPY . /opt/diyca/
 
-RUN apt update && apt-get install -y --no-install-recommends openssl sqlite3 rsyslog python3-openssl python3-cffi && pip3 install flask dnspython 
+RUN apt update && apt-get install -y --no-install-recommends openssl sqlite3 rsyslog python3 python3-pip python3-openssl python3-cffi-backend && pip3 install flask dnspython 
 # Prevent any rsyslog errors
 RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf && touch /dev/log
 
