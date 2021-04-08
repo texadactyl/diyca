@@ -156,11 +156,20 @@ Set up the diyca software on the Raspberry Pi
 
 * bin/3.diyca_web_init.sh
 
-* Edit /etc/rc.local - Just before the "exit 0", add the following lines:
+* If necessary, create /etc/rc.local:
+
+    printf '%s\n' '#!/bin/bash' 'exit 0' | sudo tee -a /etc/rc.local
+    sudo chmod +x /etc/rc.local
+
+* Edit /etc/rc.local - Just before the "exit 0", insert the following lines:
 
     # Launch diyca
 	cd /opt/diyca
 	bin/rc.diyca.sh
+
+* You may need to enable rc.local compatibility:
+
+    sudo systemctl enable rc-local.service
 
 ======================================================
 Launch DIYCA on the Raspberry Pi
@@ -199,6 +208,8 @@ For Chrome, this was my experience on Linux:
 
     Click on settings.
     Select Advanced.
+    Select Privacy and security.
+    Select Security.
     Select Manage certificates.
     Click on Authorities.
     Click on IMPORT.  That starts an "Open file" dialogue.
