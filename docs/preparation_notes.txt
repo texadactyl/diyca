@@ -192,22 +192,9 @@ on another machine as trusted to "identify web sites" (Firefox-speak).
 make sure that it goes into the trusted/authority section 
 *AND* it is enabled for web server authentication.
 
-For Firefox, this was my experience on Linux:
-
-	Select preferences (URL = about:preferences).
-	Select "Privacy & Security".
-	Select "View Certificates".
-	Select the "Authorities" tab and click on "Import...".
-	That opens a "Select file" dialogue.
-        Locate and select the diyca_calvin.crt file and click on "Open".
-	Click on "Trust this CA to identify websites."
-	Exit from Firefox (necessary!).
-	Relaunch Firefox.
-
-For Chrome, this was my experience on Linux:
+For Chrome "Version 103.0.5060.114 (Official Build) (64-bit)", this was my experience on Linux:
 
     Click on settings.
-    Select Advanced.
     Select Privacy and security.
     Select Security.
     Select Manage certificates.
@@ -215,11 +202,13 @@ For Chrome, this was my experience on Linux:
     Click on IMPORT.  That starts an "Open file" dialogue.
     Locate and select the diyca_calvin.crt file and click on "Open".
     Click on "Trust this CA to identify websites."
+    It will be stored as org-CAintranet Org.
 
-Test: Go visit the diyca server.
+Test: Go visit the diyca server.  The following example assumes that the web server is running
+on IP address 192.168.1.102 and is listening to local port 8080.
 Put the following in the location window of a browser on a client machine:
 
-	https://192.168.1.103:8080
+	https://192.168.1.102:8080
 
 IMPORTANT - Make certain that:
 * The IP address in the browser location window is an *exact* match 
@@ -230,21 +219,15 @@ to the PORT variable in app_web/diyca_web.cfg of the web server.
 That got me to the login page which was my expectation.  If this is the first time, click on
 "register" and set up a user.  When registration completes, you are automatically logged in.
 
-Firefox on my wife's Mac laptop: Everything worked exactly as on Linux.  Note that Firefox on the Mac 
-does not use the Apple keychain utility!
-
-After importing diyca_calvin.crt with the Apple keychain utility and marking it
-as trusted for web operations, I was able to access the diyca server Login menu 
-from Safari and Chrome on spouse's MacOS laptop.
-
-I have no Windows machine so I did not try a Windows browser.
-
 ======================================================
 Test with the sample applications, alice and bob
 ======================================================
 
-See subdirectory "example.users", file README.txt.
-Follow instructions.
+See the example.users for generating the example Alice-Bob set up, including signing a
+Certificate Signing Request (CSR) for each.  A CSR is required as input to the DIYCA web server
+in order to obtain a user certificate (CRT).
+
+Follow the instructions in file README.txt to create Alice and Bob.
 
 ======================================================
 External references for 3rd party tools
