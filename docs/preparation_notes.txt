@@ -205,10 +205,10 @@ For Chrome "Version 103.0.5060.114 (Official Build) (64-bit)", this was my exper
     It will be stored as org-CAintranet Org.
 
 Test: Go visit the diyca server.  The following example assumes that the web server is running
-on IP address 192.168.1.102 and is listening to local port 8080.
+on IP address 192.168.1.103 and is listening to local port 8080.
 Put the following in the location window of a browser on a client machine:
 
-	https://192.168.1.102:8080
+	https://192.168.1.103:8080
 
 IMPORTANT - Make certain that:
 * The IP address in the browser location window is an *exact* match 
