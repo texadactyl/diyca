@@ -93,7 +93,7 @@ if __name__ == "__main__":
         except Exception as err:
             util.oops("Cannot readline() with file {%s}, reason: {%s}", input_file, repr(err))
         try:
-            conn.send(outline)
+            conn.send(str.encode(outline))
             if flag_verbose:
                 util.logger("Sent{%d}: {%s}", counter, outline)
             if counter == 0:
