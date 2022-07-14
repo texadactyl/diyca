@@ -3,7 +3,7 @@ Overview
 
 *** Python 3 only ***
 
-(Python 2 is deprecated in 2020)
+(Python 2 was deprecated in 2020)
 
 *** It is very important to follow docs/preparation_notes.txt precisely. ***
 
