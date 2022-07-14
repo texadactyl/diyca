@@ -1,13 +1,13 @@
 #!/bin/bash
 MYNAME=`basename $0`
 #--------------------------------------------------
-rm -rf certs
+rm -rf csrs
 if [ $? -ne 0 ]; then
-	echo "*** $MYNAME: failed to rm -rf certs"
+	echo "*** $MYNAME: failed to rm -rf csrs"
 fi
-mkdir certs
+mkdir csrs
 if [ $? -ne 0 ]; then
-	echo "*** $MYNAME: failed to mkdir certs"
+	echo "*** $MYNAME: failed to mkdir csrs"
 fi
 echo " "
 echo "================================================================="
