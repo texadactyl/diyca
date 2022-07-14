@@ -41,10 +41,14 @@ if __name__ == "__main__":
         my_crt_file = config.get(SECTION_NAME, "my_crt_file")
         if len(my_crt_file) < 1:
             util.oops("This is not a config file: {%s}", config_file)
-        my_key_file = config.get(SECTION_NAME, "my_key_file")
-        ca_crt_file = config.get(SECTION_NAME, "ca_crt_file")
+        my_key_file = os.path.abspath(config.get(SECTION_NAME, "my_key_file"))
+        util.logger(f"my_key_file: {my_key_file}")
+        ca_crt_file = os.path.abspath(config.get(SECTION_NAME, "ca_crt_file"))
+        util.logger(f"ca_crt_file: {ca_crt_file}")
         server_addr = config.get(SECTION_NAME, "server_addr")
+        util.logger(f"server_addr: {server_addr}")
         server_port = config.getint(SECTION_NAME, "server_port")
+        util.logger(f"server_port: {server_port}")
         session_timeout = config.getint(SECTION_NAME, "session_timeout")
         flag_verbose = config.getboolean(SECTION_NAME, "flag_verbose")
     except Exception as err:
@@ -52,14 +56,14 @@ if __name__ == "__main__":
 
     # Initialize context
     ctx = SSL.Context(SSL.SSLv23_METHOD)
-    #ctx.set_options(SSL.OP_NO_SSLv2)
-    #ctx.set_options(SSL.OP_NO_SSLv3)
     ctx.set_verify(SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT,
                    examine_certificate)         # Demand a client certificate
-    ctx.use_certificate_file(my_crt_file)       # Provide a client certificate
+    ctx.use_certificate_file(my_crt_file)       # Provide a server certificate
     ctx.use_privatekey_file(my_key_file)        # My private key
     ctx.load_verify_locations(ca_crt_file)      # I trust this CA
     ctx.set_timeout(session_timeout)            # Set session timeout value
+    util.logger("SSL context initialized")
+
 
     # Set up client connection to server
     try:
