@@ -205,7 +205,7 @@ For Chrome "Version 103.0.5060.114 (Official Build) (64-bit)", this was my exper
     Click on IMPORT.  That starts an "Open file" dialogue.
     Locate and select the diyca_calvin.crt file and click on "Open".
     Click on "Trust this CA to identify websites."
-    It will be stored as org-CAintranet Org.
+    It will be stored as org-CalvinIntranet Org.
 
 Test: Go visit the diyca server.  The following example assumes that the web server is running
 on IP address 192.168.1.103 and is listening to local port 8080.
