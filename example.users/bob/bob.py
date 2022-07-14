@@ -100,28 +100,31 @@ if __name__ == "__main__":
     try:
         config = configparser.ConfigParser()
         config.read(config_file)
-        my_crt_file = config.get(SECTION_NAME, "my_crt_file")
+        my_crt_file = os.path.abspath(config.get(SECTION_NAME, "my_crt_file"))
         if len(my_crt_file) < 1:
             util.oops("This is not a config file: {%s}", config_file)
-        my_key_file = config.get(SECTION_NAME, "my_key_file")
-        ca_crt_file = config.get(SECTION_NAME, "ca_crt_file")
+        util.logger(f"my_crt_file: {my_crt_file}")
+        my_key_file = os.path.abspath(config.get(SECTION_NAME, "my_key_file"))
+        util.logger(f"my_key_file: {my_key_file}")
+        ca_crt_file = os.path.abspath(config.get(SECTION_NAME, "ca_crt_file"))
+        util.logger(f"ca_crt_file: {ca_crt_file}")
         my_port = config.getint(SECTION_NAME, "my_port")
         session_timeout = config.getint(SECTION_NAME, "session_timeout")
     except Exception as exc:
         util.oops("Trouble with config file {%s}, reason: {%s}", config_file, repr(exc))
 
     # Initialize context
-    try:
-        ctx = SSL.Context(SSL.SSLv23_METHOD)
-        ctx.set_verify(SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT,
-                       examine_certificate)          # Demand a client certificate
-        ctx.use_certificate_file(my_crt_file)        # Provide a server certificate
-        ctx.use_privatekey_file(my_key_file)        # My private key
-        ctx.load_verify_locations(ca_crt_file)        # I trust this CA
-        ctx.set_timeout(session_timeout)            # Set session timeout value
-        util.logger("SSL context initialized")
-    except Exception as exc:
-        util.oops("Could not initialize SSL context, reason: {%s} - see the HELP.txt file", repr(exc))
+    #try:
+    ctx = SSL.Context(SSL.SSLv23_METHOD)
+    ctx.set_verify(SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT,
+                   examine_certificate)         # Demand a client certificate
+    ctx.use_certificate_file(my_crt_file)       # Provide a server certificate
+    ctx.use_privatekey_file(my_key_file)        # My private key
+    ctx.load_verify_locations(ca_crt_file)      # I trust this CA
+    ctx.set_timeout(session_timeout)            # Set session timeout value
+    util.logger("SSL context initialized")
+    #except Exception as exc:
+    #   util.oops("Could not initialize SSL context, reason: {%s} - see the HELP.txt file", repr(exc))
 
     # Set up server
     try:
@@ -179,7 +182,7 @@ if __name__ == "__main__":
         # Process all of the sockets that are ready to transmit
         for wsocket in wready:
             try:
-                nbytes_sent = wsocket.send(writers[wsocket])
+                nbytes_sent = wsocket.send(str.encode(writers[wsocket]))
             except (SSL.WantReadError,
                     SSL.WantWriteError,
                     SSL.WantX509LookupError):
