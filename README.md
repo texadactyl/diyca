@@ -46,8 +46,8 @@ Subfolders:
 
 The starting point with this project is the docs/preparation_notes.txt file.  Follow the instructions therein precisely with possible exceptions related to Raspbian set up changes or bugs that you found (please open an issue).
 
-External Package Dependencies
------------------------------
+External Python Package Dependencies
+------------------------------------
 ```
 dnspython
 flask
