@@ -32,8 +32,6 @@ def remove_key(xsocket, err=None):
     the readers and writers lists.
     Then, shutdown and close the socket
     """
-    global readers
-    global writers
     if err:
         util.logger("Client {%s} left unexpectedly, reason: {%s}", xsocket.getpeername(), repr(err))
     else:
@@ -54,7 +52,6 @@ def closer(arg_exit_code):
     Close the server/listener socket.
     Exit to operating system.
     """
-    global readers   # Just need the readers for closing the file descriptors
     # For any readers still around, close them down
     for csocket in readers.keys():
         try:
@@ -109,12 +106,12 @@ if __name__ == "__main__":
         ca_crt_file = os.path.abspath(config.get(SECTION_NAME, "ca_crt_file"))
         util.logger(f"ca_crt_file: {ca_crt_file}")
         my_port = config.getint(SECTION_NAME, "my_port")
+        util.logger(f"my_port: {my_port}")
         session_timeout = config.getint(SECTION_NAME, "session_timeout")
     except Exception as exc:
         util.oops("Trouble with config file {%s}, reason: {%s}", config_file, repr(exc))
 
     # Initialize context
-    #try:
     ctx = SSL.Context(SSL.SSLv23_METHOD)
     ctx.set_verify(SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT,
                    examine_certificate)         # Demand a client certificate
@@ -123,8 +120,6 @@ if __name__ == "__main__":
     ctx.load_verify_locations(ca_crt_file)      # I trust this CA
     ctx.set_timeout(session_timeout)            # Set session timeout value
     util.logger("SSL context initialized")
-    #except Exception as exc:
-    #   util.oops("Could not initialize SSL context, reason: {%s} - see the HELP.txt file", repr(exc))
 
     # Set up server
     try:
@@ -146,7 +141,9 @@ if __name__ == "__main__":
     while True:
         # Verbose! util.logger("Top of main loop")
         try:
-            rready, wready, dummy = select.select([server] + list(readers.keys()), list(writers.keys()), dummies)
+            rready, wready, dummy = select.select([server] + list(readers.keys()),
+                                                  list(writers.keys()),
+                                                  dummies)
         except Exception as exc:
             util.logger("Caught an exception in select.select(), reason: {%s}", repr(exc))
             break
@@ -176,7 +173,8 @@ if __name__ == "__main__":
                         # Verbose! util.logger("Initializing a writer socket for rsocket from {%s}", rsocket.getpeername())
                         writers[rsocket] = ""
                     # This inbound message (msg) has an associated writer-socket
-                    # Have the server_application produce a response and schedule it for transmission
+                    # Have the server_application produce a response
+                    #    and schedule it for transmission
                     writers[rsocket] = writers[rsocket] + server_application(msg)
 
         # Process all of the sockets that are ready to transmit
