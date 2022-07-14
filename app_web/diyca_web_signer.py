@@ -81,6 +81,9 @@ def sign_csr(arg_userid, arg_csr_path, arg_crt_path):
         subject = csr.get_subject() # will log the subject later
         cert.set_subject(subject)
         cert.set_pubkey(csr.get_pubkey())
+        ext_list = csr.get_extensions()
+        if ext_list:
+             cert.add_extensions(ext_list)
         cert.sign(CAprivatekey, DIGEST)
     except Exception as exc:
         app.logger.error("sign_csr: Cannot sign CSR {%s} for user {%s}, reason: {%s}",
