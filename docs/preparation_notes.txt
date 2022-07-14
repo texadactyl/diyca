@@ -20,7 +20,7 @@ System requirements and comments
 	- python3-pip (deb package or the rpm equivalent)
 	- openssl (deb package or the rpm equivalent)
 	- sqlite3 (deb package or the rpm equivalent)
-	- dnspython, flask, pyOpenSSL, werkzeug (conda or pip3 packages) 
+	- dnspython, flask, pyOpenSSL, werkzeug (pip packages) 
 
 What follows are set up instructions for the Raspberry Pi using 
 Linux distribution Raspbian Buster.
@@ -117,9 +117,11 @@ Get some packages - see references at end of this document.
 # The above step might run like a tortoise.
 # Also, if a new kernel is installed, don't bother rebooting just quite yet.
 
+# Will need pip, openssl, and SQL Lite database libraries.
 * sudo apt -y install git python3-pip openssl sqlite3
 
-* Use conda or pip3 to install flask dnspython pyOpenSSL werkzeug
+# The following puts required packages in the central pip repository:
+* sudo python3 -m pip install flask dnspython pyOpenSSL werkzeug
 
 ======================================================
 Set up the diyca software on the Raspberry Pi
@@ -147,13 +149,6 @@ Set up the diyca software on the Raspberry Pi
 
 * bin/2.diyca_calvin_init.sh
 
-* Get a copy of Calvin's self-signed CA certificate (certs/diyca_calvin.crt) 
-  onto the desktop computer where you will be using it later on with applications
-  (E.g. sample applications alice and bob).
-  The `rsync` utility can be used to pull the CA certificate onto another computer:
-
-    rsync pi@192.168.1.103:/opt/diyca/certs/diyca_calvin.crt $HOME/Downloads
-
 * bin/3.diyca_web_init.sh
 
 * If necessary, create /etc/rc.local:
@@ -170,6 +165,14 @@ Set up the diyca software on the Raspberry Pi
 * You may need to enable rc.local compatibility:
 
     sudo systemctl enable rc-local.service
+
+* Place a copy of Calvin's self-signed CA certificate (certs/diyca_calvin.crt) 
+  onto the desktop computer where you will be using it later on with applications
+  (E.g. sample applications alice and bob).
+  The `rsync` utility can be used to pull the CA certificate onto another computer.
+  E.g.:
+
+    rsync pi@192.168.1.103:/opt/diyca/certs/diyca_calvin.crt $HOME/Downloads
 
 ======================================================
 Launch DIYCA on the Raspberry Pi
@@ -235,7 +238,6 @@ External references for 3rd party tools
 
 * Python 3 language reference: https://docs.python.org/3/reference/
 * Python 3 standard library reference: https://docs.python.org/3/library/
-* Anaconda environment and conda: https://www.anaconda.com/distribution/
 * Python pip3 utility: https://pip.pypa.io/en/stable/
 * Python web toolkit "flask": https://palletsprojects.com/p/flask/
 * OpenSSL (SSL/TLS): https://www.openssl.org/
