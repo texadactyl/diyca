@@ -12,7 +12,7 @@ from logging.handlers import TimedRotatingFileHandler
 # 3rd party imports
 from werkzeug.utils import secure_filename
 from flask import Flask, session, request, render_template
-from flask import make_response, send_file
+from flask import make_response, send_file, send_from_directory
 
 # Web Server app imports
 import diyca_web_utilities as util
@@ -77,6 +77,10 @@ def build_logout_response(arg_html_text):
 
 #------------ Web Server Entry Points --------------------------------
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 @app.route("/", methods=["GET"])
 def web_request_initial_contact():
     """
@@ -457,7 +461,7 @@ if __name__ == "__main__":
     file.flush()
     os.fsync(file)
     file.close()
-
+    
     # Proceed; listen for HTTP requests on tcp_port
     app.logger.info("============================== WEB SERVER BEGINS ==============================")
     try:

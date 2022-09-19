@@ -1,6 +1,7 @@
 ## History of changes
 
 ```
+2.5   2022-09-19   Cleanup and added flavicon.ico.
 2.4   2022-09-15   Remediation for issues #24 and #25.
                    File diyca.version is replaced with HISTORY.md.
 2.3   2022-07-14   Remediation for issues #14, #20, #22, and #23.
