@@ -18,7 +18,7 @@ diyca_validate_tree () {
 		fi
 	fi
 	#logger -s -t $VALIDATOR "validate_diyca: Begin"
-	if [ ! -r diyca.version ]; then
+	if [ ! -r HISTORY.md ]; then
 		logger -s -t $VALIDATOR "*** diy.ssl.ca.version is inaccessible"
 		exit 86
 	fi
