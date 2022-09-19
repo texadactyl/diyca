@@ -53,7 +53,7 @@ def killer():
         pid_path = app.config["PID_PATH"]
         file = open(pid_path, "r")
         str_pid = file.read()
-        # Set pid to numeric version of PID file contents
+        # Set numeric pid to PID file contents
         pid = -1
         try:
             pid = int(str_pid)
