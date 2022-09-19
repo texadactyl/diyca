@@ -19,7 +19,7 @@ diyca_validate_tree () {
 	fi
 	#logger -s -t $VALIDATOR "validate_diyca: Begin"
 	if [ ! -r HISTORY.md ]; then
-		logger -s -t $VALIDATOR "*** diy.ssl.ca.version is inaccessible"
+		logger -s -t $VALIDATOR "*** File HISTORY.md is inaccessible"
 		exit 86
 	fi
 	check_subdir $VALIDATOR "app_web"
