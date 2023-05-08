@@ -162,10 +162,6 @@ Set up the diyca software on the Raspberry Pi
 	cd /opt/diyca
 	bin/rc.diyca.sh
 
-* You may need to enable rc.local compatibility:
-
-    sudo systemctl enable rc-local.service
-
 * Place a copy of Calvin's self-signed CA certificate (certs/diyca_calvin.crt) 
   onto the desktop computer where you will be using it later on with applications
   (E.g. sample applications alice and bob).
