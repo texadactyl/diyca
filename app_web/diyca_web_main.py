@@ -376,7 +376,7 @@ def web_request_sign_csr():
     # Download CRT file to user
     return send_file(crt_filepath,
                      mimetype='application/pkix-cert',
-                     attachment_filename=crt_filename,
+                     download_name=crt_filename,
                      as_attachment=True)
 
 #------------ Begin Launched Program ------------------------------------
