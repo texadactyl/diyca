@@ -1,6 +1,12 @@
 Overview
 --------
 
+*** Retirement Notice ***
+
+This github site has out-lived its usefulness. Two high-quality Certificate Authority facilities are currently available at no cost for development use or production:
+* https://letsencrypt.org/
+* https://certbot.eff.org/
+
 *** Python 3 only ***
 
 (Python 2 was deprecated in 2020)
